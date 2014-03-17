@@ -25,10 +25,10 @@ class bss_qrcode(osv.osv):
                  "oe_object": 1,
                  "oe_id": 1,
         }        
-        json = json.dump(data)
+        json_values = json.dump(data)
         
         # QR Code filling
-        qr.add_data(json)
+        qr.add_data(json_values)
         qr.make(fit=True)
         img = qr.make_image()
 
