@@ -10,7 +10,7 @@ class bss_qrcode(osv.osv):
     _name = 'bss_qrcode.qrcode'
     _description = "QR Code generation and files association"
     
-    def print_qrcode(self, oe_object, oe_id, ):
+    def print_qrcode(self, cr, uid, ids, context=None):
 
         # QR Code creation
         qr = qrcode.QRCode(
@@ -22,8 +22,8 @@ class bss_qrcode(osv.osv):
 
         # JSon parsing
         data = {
-                 "oe_object": oe_object,
-                 "oe_id": oe_id,
+                 "oe_object": 1,
+                 "oe_id": 1,
         }        
         json = json.dump(data)
         
