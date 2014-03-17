@@ -23,7 +23,7 @@ class bss_qrcode(osv.osv):
 
         # JSon parsing
         print "CONTEXT"
-        context = ast.literal_eval(json.dumps(context))
+        context = context.encode('ascii')
         print context
         data = {
                  "oe_object": context.active_model,
