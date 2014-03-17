@@ -11,7 +11,8 @@ class bss_qrcode(osv.osv):
     _description = "QR Code generation and files association"
     
     def print_qrcode(self, cr, uid, ids, context):
-
+        print context
+        
         # QR Code creation
         qr = qrcode.QRCode(
             version = 1,
