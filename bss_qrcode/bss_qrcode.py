@@ -21,9 +21,10 @@ class bss_qrcode(osv.osv):
         )
 
         # JSon parsing
+        ctx = dict(context)
         data = {
-                 "oe_object": context.active_model,
-                 "oe_id": context.active_ids,
+                 "oe_object": ctx.active_model,
+                 "oe_id": ctx.active_ids,
         }        
         json_values = json.dumps(data)
         
