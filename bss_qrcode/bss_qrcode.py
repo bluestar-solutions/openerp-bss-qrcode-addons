@@ -22,6 +22,7 @@ class bss_qrcode(osv.osv):
         )
 
         # JSon parsing
+        print "CONTEXT"
         context = ast.literal_eval(json.dumps(context))
         print context
         data = {
