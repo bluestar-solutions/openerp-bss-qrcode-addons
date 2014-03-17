@@ -4,6 +4,7 @@ from openerp.osv import osv
 import qrcode
 import StringIO
 import json
+import ast
 
 class bss_qrcode(osv.osv):
 
@@ -21,11 +22,10 @@ class bss_qrcode(osv.osv):
         )
 
         # JSon parsing
-        ctx = dict(context)
-        print ctx
+        context = ast.literal_eval(json.dumps(context))
         data = {
-                 "oe_object": ctx.active_model,
-                 "oe_id": ctx.active_ids,
+                 "oe_object": context.active_model,
+                 "oe_id": context.active_ids,
         }        
         json_values = json.dumps(data)
         
