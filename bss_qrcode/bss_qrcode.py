@@ -23,8 +23,8 @@ class bss_qrcode(osv.osv):
 
         # JSon parsing
         data = {
-#                 "oe_object": context.active_model,
-#                 "oe_id": context.active_ids,
+                 "oe_object": 1,
+                 "oe_id": 1,
         }        
         json_values = json.dumps(data)
         
