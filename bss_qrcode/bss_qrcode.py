@@ -39,13 +39,10 @@ class bss_qrcode(osv.osv):
             border = 0,
         )
 
+        # Get server instance
         cr.execute("SELECT inet_server_addr(), inet_server_port(), current_database()")
         res = cr.fetchone()
-        print res
         server_instance = str(res[0]) + ":" + str(res[1]) + "/" + str(res[2])
-        print server_instance
-#        server_instance = cr.fetchone()[0] + ":" + cr.fetchone()[1] + "/" + cr.fetchone()[2]
-#        print server_instance
         
         # JSon parsing
         data = {
