@@ -25,6 +25,7 @@ import zbar
 from PIL import Image
 from StringIO import StringIO
 import json
+import socket
 
 class test_bss_qrcode(common.TransactionCase):
 
@@ -72,9 +73,9 @@ class test_bss_qrcode(common.TransactionCase):
         scanner.scan(image)
         
         # Get server instance
-        self.cr.execute("SELECT inet_server_addr(), inet_server_port(), current_database()")
+        self.cr.execute("SELECT inet_server_port(), current_database()")
         res = self.cr.fetchone()
-        server_instance = str(res[0]) + ":" + str(res[1]) + "/" + str(res[2])
+        server_instance = socket.gethostname() + ":" + str(res[0]) + "/" + str(res[1])
         
         # Extract results
         for symbol in image:

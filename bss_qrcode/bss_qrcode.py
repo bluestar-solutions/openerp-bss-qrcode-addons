@@ -23,6 +23,7 @@ from openerp.osv import osv
 import qrcode
 import StringIO
 import json
+import socket
 
 class bss_qrcode(osv.osv):
 
@@ -40,9 +41,9 @@ class bss_qrcode(osv.osv):
         )
 
         # Get server instance
-        cr.execute("SELECT inet_server_addr(), inet_server_port(), current_database()")
+        cr.execute("SELECT inet_server_port(), current_database()")
         res = cr.fetchone()
-        server_instance = str(res[0]) + ":" + str(res[1]) + "/" + str(res[2])
+        server_instance = socket.gethostname() + ":" + str(res[0]) + "/" + str(res[1])
         
         # JSon parsing
         data = {
