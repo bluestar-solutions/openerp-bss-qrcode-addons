@@ -45,7 +45,7 @@ class bss_qrcode(osv.osv):
         
         # JSon parsing
         data = {
-#                 "datetime": str(datetime.datetime.now()),
+                 "datetime": str(datetime.datetime.now()),
                  "version": version,
                  "oe_object": context[u'active_model'],
                  "oe_id": context[u'active_ids'],
