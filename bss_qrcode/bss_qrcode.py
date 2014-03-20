@@ -59,6 +59,11 @@ class bss_qrcode(osv.osv):
         qr.add_data(json_values)
 #        qr.make(fit=True)
         img = qr.make_image()
+        
+        print "*****************************************"
+        print len(json_values)
+        img.save('/home/mourad/eclipse-pydev-workspace/java-bss-qrcode/qrcode.gif', "GIF")
+        print "*****************************************"
 
         # Get the QR Code stream
         output = StringIO.StringIO()
