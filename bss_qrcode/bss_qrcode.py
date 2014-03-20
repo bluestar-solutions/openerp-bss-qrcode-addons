@@ -51,8 +51,9 @@ class bss_qrcode(osv.osv):
                  "filename": filename,
                  "server_id": server_id,
                  "specific": specific
-        }  
+        }
         json_values = json.dumps(data)
+        print len(json_values)
         
         # QR Code filling
         qr.add_data(json_values)
