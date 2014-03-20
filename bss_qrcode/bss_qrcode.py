@@ -35,10 +35,10 @@ class bss_qrcode(osv.osv):
         
         # QR Code creation
         qr = qrcode.QRCode(
-            version = 20,
-            error_correction = qrcode.constants.ERROR_CORRECT_L,
+            version = None,
+            error_correction = qrcode.constants.ERROR_CORRECT_M,
             box_size = size,
-            border = 0,
+            border = 1,
         )
         
         # JSon parsing
@@ -57,7 +57,7 @@ class bss_qrcode(osv.osv):
         
         # QR Code filling
         qr.add_data(json_values)
-#        qr.make(fit=True)
+        qr.make(fit=True)
         img = qr.make_image()
         
         print "*****************************************"
