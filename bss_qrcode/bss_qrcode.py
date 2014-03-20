@@ -46,13 +46,13 @@ class bss_qrcode(osv.osv):
         # JSon parsing
         data = {
 #                 "datetime": str(datetime.datetime.now()),
-#                 "version": version,
+                 "version": version,
                  "oe_object": context[u'active_model'],
                  "oe_id": context[u'active_ids'],
-#                 "user_id": uid,
-#                 "report": report,
-#                 "filename": filename,
-#                 "server_id": server_id,
+                 "user_id": uid,
+                 "report": report,
+                 "filename": filename,
+                 "server_id": server_id,
 #                 "specific": specific
         }  
         json_values = json.dumps(data)
