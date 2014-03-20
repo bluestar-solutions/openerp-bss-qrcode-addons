@@ -36,7 +36,7 @@ class bss_qrcode(osv.osv):
         # QR Code creation
         qr = qrcode.QRCode(
             version = None,
-            error_correction = qrcode.constants.ERROR_CORRECT_M,
+            error_correction = qrcode.constants.ERROR_CORRECT_L,
             box_size = size,
             border = 1,
         )
