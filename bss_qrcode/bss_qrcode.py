@@ -23,14 +23,14 @@ from openerp.osv import osv
 import qrcode
 import StringIO
 import json
-import socket
+import datetime
 
 class bss_qrcode(osv.osv):
 
     _name = 'bss_qrcode.qrcode'
     _description = "QR Code generation and files association"
     
-    def print_qrcode(self, cr, uid, ids, context):
+    def print_qrcode(self, cr, uid, ids, version, context, report, filename, server_id, specific=None):
         
         # QR Code creation
         qr = qrcode.QRCode(
@@ -41,16 +41,20 @@ class bss_qrcode(osv.osv):
         )
 
         # Get server instance
-        cr.execute("SELECT inet_server_port(), current_database()")
-        res = cr.fetchone()
-        server_instance = socket.gethostname() + ":" + str(res[0]) + "/" + str(res[1])
+
         
         # JSon parsing
         data = {
-                 "server_instance" : server_instance,
+                 "datetime": str(datetime.datetime.now()),
+                 "version": version,
                  "oe_object": context[u'active_model'],
                  "oe_id": context[u'active_ids'],
-        }        
+                 "user_id": uid,
+                 "report": report,
+                 "filename": filename,
+                 "server_id": server_id,
+                 "specific": specific
+        }  
         json_values = json.dumps(data)
         
         # QR Code filling

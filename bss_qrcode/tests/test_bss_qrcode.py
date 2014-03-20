@@ -55,7 +55,7 @@ class test_bss_qrcode(common.TransactionCase):
         }
 
         # I get the qrcode
-        qrcode_partner = self.bss_qrcode_manager.print_qrcode(context)
+        qrcode_partner = self.bss_qrcode_manager.print_qrcode("7.0.1.2", context, "partner_report", "parner_file", "myserver_id")
 
         # Create and configure the reader
         scanner = zbar.ImageScanner()        
@@ -72,19 +72,15 @@ class test_bss_qrcode(common.TransactionCase):
         # Scan the image for barcodes
         scanner.scan(image)
         
-        # Get server instance
-        self.cr.execute("SELECT inet_server_port(), current_database()")
-        res = self.cr.fetchone()
-        server_instance = socket.gethostname() + ":" + str(res[0]) + "/" + str(res[1])
-        
         # Extract results
         for symbol in image:
             val = json.loads(symbol.data)
-            self.assertEquals(val['server_instance'], server_instance, "The server instance is not correct.")
+            self.assertEquals(val['version'], "7.0.1.2", "The version is not correct.")
             self.assertEquals(val['oe_object'], "res.partner", "The object is not correct.")
             self.assertEquals(val['oe_id'], partner_1.id, "The id is not correct.")
-
-        print val['oe_id']
+            self.assertEquals(val['report'], "partner_report", "The report is not correct.")
+            self.assertEquals(val['filename'], "parner_file", "The filename is not correct.")
+            self.assertEquals(val['server_id'], "myserver_id", "The server id is not correct.")
 
         # Clean up the image
         del(image)
