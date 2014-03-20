@@ -24,6 +24,7 @@ import qrcode
 import StringIO
 import json
 import datetime
+from PIL import Image
 
 class bss_qrcode(osv.osv):
 
@@ -34,10 +35,10 @@ class bss_qrcode(osv.osv):
         
         # QR Code creation
         qr = qrcode.QRCode(
-#            version = None,
-#            error_correction = qrcode.constants.ERROR_CORRECT_M,
+            version = 20,
+            error_correction = qrcode.constants.ERROR_CORRECT_L,
             box_size = size,
-#            border = 0,
+            border = 0,
         )
         
         # JSon parsing
@@ -56,7 +57,7 @@ class bss_qrcode(osv.osv):
         
         # QR Code filling
         qr.add_data(json_values)
-#        qr.make(fit=True)
+        qr.make(fit=True)
         img = qr.make_image()
 
         # Get the QR Code stream
