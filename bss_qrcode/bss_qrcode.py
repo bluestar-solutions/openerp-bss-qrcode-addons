@@ -34,10 +34,10 @@ class bss_qrcode(osv.osv):
         
         # QR Code creation
         qr = qrcode.QRCode(
-            version = None,
-            error_correction = qrcode.constants.ERROR_CORRECT_M,
-            box_size = size,
-            border = 0,
+#            version = None,
+#            error_correction = qrcode.constants.ERROR_CORRECT_M,
+#            box_size = size,
+#            border = 0,
         )
         
         # JSon parsing
