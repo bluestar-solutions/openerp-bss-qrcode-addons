@@ -37,7 +37,7 @@ class bss_qrcode(osv.osv):
         qr = qrcode.QRCode(
             version = None,
             error_correction = qrcode.constants.ERROR_CORRECT_L,
-            box_size = size,
+#            box_size = size,
             border = 1,
         )
         
