@@ -25,7 +25,6 @@ import zbar
 from PIL import Image
 from StringIO import StringIO
 import json
-import socket
 
 class test_bss_qrcode(common.TransactionCase):
 
@@ -55,10 +54,7 @@ class test_bss_qrcode(common.TransactionCase):
         }
 
         # I get the qrcode
-        spec = ""
-        for i in range(1,1300):
-            spec += "p"
-        qrcode_partner = self.bss_qrcode_manager.print_qrcode(1, "7.0.1.2", context, "partner_report", "parner_file", "myserver_id", spec)
+        qrcode_partner = self.bss_qrcode_manager.print_qrcode("7.0.1.2", context, "partner_report", "parner_file", "myserver_id")
 
         # Create and configure the reader
         scanner = zbar.ImageScanner()        
