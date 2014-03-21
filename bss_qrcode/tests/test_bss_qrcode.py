@@ -55,7 +55,7 @@ class test_bss_qrcode(common.TransactionCase):
         }
 
         # I get the qrcode
-        qrcode_partner = self.bss_qrcode_manager.print_qrcode(5, "7.0.1.2", context, "partner_report", "parner_file", "myserver_id")
+        qrcode_partner = self.bss_qrcode_manager.print_qrcode("7.0.1.2", context, "partner_report", "parner_file", "myserver_id")
 
         # Create and configure the reader
         scanner = zbar.ImageScanner()        
