@@ -13,7 +13,7 @@
 							<label for="create_date"/> 
 							<h3><field name="create_date"/></h3>
 						</div>
-                        <page string="Successfully imported files">
+
 							<field name="imported_document_ids">
 								<form>
 				               		<field name="filename" />
@@ -29,7 +29,6 @@
 				               		<field name="oe_version" />
 								</tree>
 							</field>
-						</page>
 					</sheet>
 				</form>
 	        </field>
