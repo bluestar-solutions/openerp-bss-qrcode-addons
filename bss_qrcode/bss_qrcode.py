@@ -2,7 +2,7 @@
 ##############################################################################
 #    
 #    OpenERP, Open Source Management Solution
-#    Copyright (C) 2012-2014 Bluestar Solutions Sàrl (<http://www.blues2.ch>).
+#    Copyright (C) 2014 Bluestar Solutions Sàrl (<http://www.blues2.ch>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,42 +19,44 @@
 #
 ##############################################################################
 
-from openerp.osv import osv
+from openerp.osv import osv, fields
 import qrcode
 import StringIO
 import json
-import datetime
 
 class bss_qrcode(osv.osv):
 
     _name = 'bss_qrcode.qrcode'
     _description = "QR Code generation and files association"
+    _rec_name = 'filename'
+   
+    _columns = {
+        'create_date' : fields.datetime('Date created', readonly=True),
+        'oe_version': fields.char('Openerp version'),  
+        'oe_object': fields.char('Openerp object'),
+        'oe_id': fields.integer('Openerp id'),  
+        'user_id': fields.integer('User id'),  
+        'report': fields.char('Report'),  
+        'filename': fields.char('Filename'),  
+        'server_id': fields.char('Server id')
+    }
     
-    def print_qrcode(self, cr, uid, ids, size, version, context, report, filename, server_id, specific={}):
+    """ Return a qrcode image. """
+    def print_qrcode(self, cr, uid, ids, current_qrcode):
         
         # QR Code creation
         qr = qrcode.QRCode(
-            version = 1,
-            error_correction = qrcode.constants.ERROR_CORRECT_M,
-            box_size = size,
-            border = 0,
+            version=None,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            border=1,
         )
-
-        # Get server instance
-
         
-        # JSon parsing
+        # QRCode content
         data = {
-                 "datetime": str(datetime.datetime.now()),
-                 "version": version,
-                 "oe_object": context[u'active_model'],
-                 "oe_id": context[u'active_ids'],
-                 "user_id": uid,
-                 "report": report,
-                 "filename": filename,
-                 "server_id": server_id,
-                 "specific": specific
-        }  
+             "qr": current_qrcode.id,
+             "se": current_qrcode.server_id,
+             "pa": "None"
+        }
         json_values = json.dumps(data)
         
         # QR Code filling
@@ -70,4 +72,22 @@ class bss_qrcode(osv.osv):
         
         return content
     
+    """ Attach the file to the concerned openerp object. """
+    def attach_file(self, cr, uid, ids, document):        
+        # When I call the function from pyunit test
+        if isinstance(ids, list):
+            ids = ids[0]
+
+        qrcode = self.read(cr, uid, ids, [], {})
+        
+        ir_attachment = self.pool.get('ir.attachment')
+        ir_attachment.create(cr, uid, {
+            'name': qrcode['filename'],
+            'datas_fname': qrcode['filename'],
+            'res_model': qrcode['oe_object'],
+            'res_id': qrcode['oe_id'],
+            'type': 'binary',
+            'db_datas': document,
+        })
+            
 bss_qrcode()
