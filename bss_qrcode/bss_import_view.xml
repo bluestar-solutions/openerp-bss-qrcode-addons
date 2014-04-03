@@ -15,10 +15,11 @@
 						</div>
 						<field name="status" />
 						<field name="imported_document_ids"/>
+						
+						<div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
+                        	<button name="view_bss_qrcode_import_tree" string="All documents" type="object"/>
+                    	</div>
 					</sheet>
-					<div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
-                        <button name="view_bss_qrcode_imported_document_tree" string="All documents" type="object"/>
-                    </div>
 				</form>
 	        </field>
     	</record>
