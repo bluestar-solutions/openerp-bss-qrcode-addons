@@ -13,9 +13,7 @@
 							<label for="create_date"/> 
 							<h3><field name="create_date"/></h3>
 						</div>
-                        <page string="Imported documents">
-							
-						</page>
+						<field name="imported_document_ids"/>
 					</sheet>
 				</form>
 	        </field>
