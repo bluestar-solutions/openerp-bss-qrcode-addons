@@ -10,7 +10,7 @@
 	        	<form create="false" edit="false" string="Import" version="7.0">        	
 		        	<sheet>
 						<div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
-                        	 <button name="%(action_bss_qrcode_import_form)d" string="All documents" type="action"/>
+                        	 <button name="%(action_bss_qrcode_imported_document_form)d" string="All documents" type="action"/>
                     	</div>
                     	
 						<div class="oe_title">							
