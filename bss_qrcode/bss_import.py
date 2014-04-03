@@ -65,7 +65,7 @@ class bss_import(osv.osv):
         'create_date' : fields.datetime('Date created', readonly=True),
         'identifier': fields.char('Identifier from java'),
         'imported_document_ids': fields.one2many('bss_qrcode.imported_document', 'import_id', string='Imported documents'),
-        'status': fields.selection([('success','Success'), ('fail','Fail')], 'Status', required=True),
+        'status': fields.selection([('success','All documents succeed'), ('fail','At least one failed document')], 'Status', required=True),
         'terminated': fields.boolean('Terminated'),    
     }
     
