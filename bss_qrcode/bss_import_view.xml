@@ -13,22 +13,9 @@
 							<label for="create_date"/> 
 							<h3><field name="create_date"/></h3>
 						</div>
-
-							<field name="imported_document_ids">
-								<form>
-				               		<field name="filename" />
-									<field name="report" />					               		
-				               		<field name="qrcode_create_date" />
-				               		<field name="oe_version" />
-				               		<field name="document" />
-								</form>
-								<tree>
-				               		<field name="filename" />
-									<field name="report" />					               		
-				               		<field name="qrcode_create_date" />
-				               		<field name="oe_version" />
-								</tree>
-							</field>
+                        <page string="Imported documents">
+							<field name="imported_document_ids"/>
+						</page>
 					</sheet>
 				</form>
 	        </field>
