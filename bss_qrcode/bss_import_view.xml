@@ -13,6 +13,7 @@
 							<label for="create_date"/> 
 							<h3><field name="create_date"/></h3>
 						</div>
+						<field name="status" />
 						<field name="imported_document_ids"/>
 					</sheet>
 				</form>
@@ -25,7 +26,6 @@
             <field name="model">bss_qrcode.import</field>
             <field name="arch" type="xml">
             	<tree colors="darkred:status=='fail';darkgreen:status=='success'" create="false" edit="false" string="Import" version="7.0">
-               		<field name="terminated" />
                		<field name="create_date" />
                		<field name="imported_document_ids" />
                		<field name="status" invisible="1" />
