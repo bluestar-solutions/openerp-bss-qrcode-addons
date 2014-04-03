@@ -30,9 +30,8 @@
     'depends': [],
     'init_xml': [],
     'update_xml': [
-       'bss_import_view.xml',
-       'bss_imported_document_view.xml',
-       
+       'bss_imported_document_view.xml',                   
+       'bss_import_view.xml',       
     ],
     'css': [],
     'js': [],
