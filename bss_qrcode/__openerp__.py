@@ -2,7 +2,7 @@
 ##############################################################################
 #    
 #    OpenERP, Open Source Management Solution
-#    Copyright (C) 2013 Bluestar Solutions Sàrl (<http://www.blues2.ch>).
+#    Copyright (C) 2014 Bluestar Solutions Sàrl (<http://www.blues2.ch>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -29,7 +29,7 @@
     'website': 'http://www.blues2.ch',
     'depends': [],
     'init_xml': [],
-    'update_xml': [],
+    'update_xml': ['bss_import_view.xml'],
     'css': [],
     'js': [],
     'qweb': [], 
