@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<!-- Form view -->
+		<record model="ir.ui.view" id="view_bss_qrcode_imported_document_form">
+	        <field name="name">Imported document</field>
+	        <field name="model">bss_qrcode.imported_document</field>
+	        <field name="arch" type="xml">
+	        	<form create="false" edit="false" string="Imported document" version="7.0">        	
+		        	<sheet>
+	               		<field name="filename" />
+	               		<field name="import_id" />
+						<field name="status" />					               		
+	               		<field name="message" />
+	               		<field name="qrcode_create_date" />
+	               		<field name="oe_object" />
+	               		<field name="report" />
+					</sheet>
+				</form>
+	        </field>
+    	</record>
+    
+    	<!-- Tree view -->
+		<record model="ir.ui.view" id="view_bss_qrcode_imported_document_tree">
+	        <field name="name">Imported document</field>
+	        <field name="model">bss_qrcode.imported_document</field>
+            <field name="arch" type="xml">
+            	<tree colors="darkred:status=='fail';darkgreen:status=='success'" create="false" edit="false" string="Imported document" version="7.0">
+               		<field name="filename" />
+               		<field name="import_id" />
+					<field name="status" />					               		
+               		<field name="message" />
+               		<field name="qrcode_create_date" />
+               		<field name="oe_object" />
+               		<field name="report" />
+                </tree>
+        	</field>
+		</record>
+	    
+	    <!-- Actions -->
+		<record model="ir.actions.act_window" id="action_bss_qrcode_imported_document_form">
+	    	<field name="name">Imported document</field>
+	        <field name="res_model">bss_qrcode.imported_document</field>
+	        <field name="view_mode">tree,form</field>
+	    </record>
+
+	</data>
+</openerp>
