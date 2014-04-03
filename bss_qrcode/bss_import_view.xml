@@ -13,45 +13,23 @@
 							<label for="create_date"/> 
 							<h3><field name="create_date"/></h3>
 						</div>
-						<notebook>
-                            <page string="Successfully imported files">
-								<field name="success_ids">
-									<form>
-					               		<field name="filename" />
-										<field name="report" />					               		
-					               		<field name="qrcode_create_date" />
-					               		<field name="oe_version" />
-					               		<field name="document" />
-									</form>
-									<tree>
-					               		<field name="filename" />
-										<field name="report" />					               		
-					               		<field name="qrcode_create_date" />
-					               		<field name="oe_version" />
-									</tree>
-								</field>
-							</page>
-							<page string="Failed imported files">
-								<field name="fail_ids">
-									<form>
-					               		<field name="filename" />
-										<field name="report" />					               		
-					               		<field name="qrcode_create_date" />
-					               		<field name="oe_version" />
-					               		<field name="document" />
-									</form>
-									<tree>
-					               		<field name="filename" />
-										<field name="report" />					               		
-					               		<field name="qrcode_create_date" />
-					               		<field name="oe_version" />
-									</tree>
-								</field>
-							</page>
-							<page string="QR Code not found">
-								<field name="qrcode_not_found_ids" />
-							</page>
-						</notebook>
+                        <page string="Successfully imported files">
+							<field name="imported_document_ids">
+								<form>
+				               		<field name="filename" />
+									<field name="report" />					               		
+				               		<field name="qrcode_create_date" />
+				               		<field name="oe_version" />
+				               		<field name="document" />
+								</form>
+								<tree>
+				               		<field name="filename" />
+									<field name="report" />					               		
+				               		<field name="qrcode_create_date" />
+				               		<field name="oe_version" />
+								</tree>
+							</field>
+						</page>
 					</sheet>
 				</form>
 	        </field>
@@ -65,9 +43,7 @@
             	<tree colors="darkred:status=='fail';darkgreen:status=='success'" create="false" edit="false" string="Import" version="7.0">
                		<field name="terminated" />
                		<field name="create_date" />
-               		<field name="success_ids" />
-               		<field name="fail_ids" />
-               		<field name="qrcode_not_found_ids" />
+               		<field name="imported_document_ids" />
                		<field name="status" invisible="1" />
                 </tree>
         	</field>
