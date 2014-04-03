@@ -74,7 +74,9 @@ class bss_import(osv.osv):
         myimport.write({'status': FAIL})
         
     """ Add the document to the correct column (i.e success, fail or qrcode_not_found).  """
-    def add_document_to_column(self, cr, uid, myimport, qrcode_id, document):        
+    def add_document_to_column(self, cr, uid, myimport, qrcode_id, document):
+        qrcode = None
+        
         # 1. The QR Code is not found
         if qrcode_id == 0:
             imported_document = {
