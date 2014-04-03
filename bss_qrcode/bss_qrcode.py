@@ -41,6 +41,7 @@ class bss_qrcode(osv.osv):
         'server_id': fields.char('Server id')
     }
     
+<<<<<<< HEAD
     """ Return a qrcode image. """
     def print_qrcode(self, cr, uid, ids, current_qrcode):
         
@@ -49,13 +50,34 @@ class bss_qrcode(osv.osv):
             version=None,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
             border=1,
+=======
+    def print_qrcode(self, cr, uid, ids, version, context, report, filename, server_id, specific={}):
+        
+        # QR Code creation
+        qr = qrcode.QRCode(
+            version = None,
+            error_correction = qrcode.constants.ERROR_CORRECT_L,
+            border = 1,
+>>>>>>> origin/mbe-print-qrcode
         )
         
         # QRCode content
         data = {
+<<<<<<< HEAD
              "qr": current_qrcode.id,
              "se": current_qrcode.server_id,
              "pa": "None"
+=======
+                 "datetime": str(datetime.datetime.now()),
+                 "version": version,
+                 "oe_object": context[u'active_model'],
+                 "oe_id": context[u'active_ids'],
+                 "user_id": uid,
+                 "report": report,
+                 "filename": filename,
+                 "server_id": server_id,
+                 "specific": specific
+>>>>>>> origin/mbe-print-qrcode
         }
         json_values = json.dumps(data)
         

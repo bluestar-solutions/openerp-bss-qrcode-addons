@@ -25,7 +25,6 @@ import zbar
 from PIL import Image
 from StringIO import StringIO
 import json
-import socket
 
 class test_bss_qrcode(common.TransactionCase):
 
