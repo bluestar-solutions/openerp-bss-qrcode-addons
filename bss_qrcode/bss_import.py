@@ -118,7 +118,7 @@ class bss_import(osv.osv):
                     }
                     self.pool.get('bss_qrcode.qrcode').attach_file(cr, uid, qrcode['id'], document)
                     
-        row_id = self.pool.get('bss_qrcode.fail').create(cr, uid, imported_document)
+        row_id = self.pool.get('bss_qrcode.imported_document').create(cr, uid, imported_document)
         
         # Filename attachment
         if qrcode is None:
