@@ -44,6 +44,18 @@
                 </tree>
         	</field>
 		</record>
+		
+		<!-- Filter view -->
+		<record model="ir.ui.view" id="view_bss_qrcode_imported_document_filter">
+            <field name="name">Imported document</field>
+            <field name="model">bss_qrcode.imported_document</field>
+            <field name="arch" type="xml">
+                <search string="Imported document">
+                    <field name="status" string="Status"/>
+                    <field name="filename" string="filename"/>
+                </search>
+             </field>
+         </record>
 	    
 	    <!-- Actions -->
 		<record model="ir.actions.act_window" id="action_bss_qrcode_imported_document_form">
