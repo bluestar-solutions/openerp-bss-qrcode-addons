@@ -18,7 +18,8 @@
                         	 	name="%(action_bss_qrcode_imported_document_form)d" 
                         	 	string="All succeed documents"
                         	 	type="action"
-                        	 	domain="[('status','=','success')]" />
+                        	 	context= "{toto:'success'}"
+                        	 	domain="[('toto','=','success')]" />
                     	</div>
                     	
 						<div class="oe_title">							
