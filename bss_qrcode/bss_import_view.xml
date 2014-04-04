@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 	<data>
-
-		<!-- View button -->
-		<record id="res_partner_view_buttons2" model="ir.ui.view">
-            <field name="name">res.partner.view.buttons</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form" />
-            <field name="priority" eval="20"/>
-            <field name="arch" type="xml">
-                <xpath expr="//div[@name='buttons']" position="inside">
-                    <button name="%(sale.act_res_partner_2_sale_order)d" type="action"
-                        string="Quotations and Sales"
-                        attrs="{'invisible': [('customer', '=', False)]}"
-                        />
-                </xpath>
-            </field>
-        </record>
         
 		<!-- Form view -->
 		<record model="ir.ui.view" id="view_bss_qrcode_import_form">
@@ -26,6 +10,12 @@
 	        	<form create="false" edit="false" string="Import" version="7.0">        	
 		        	<sheet>
 						<div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
+							<xpath expr="//div[@name='buttons']" position="inside">
+			                    <button name="%(sale.act_res_partner_2_sale_order)d" type="action"
+			                        string="Quotations and Sales"
+			                        attrs="{'invisible': [('customer', '=', False)]}"
+			                        groups="base.group_sale_salesman"/>
+			                </xpath>
                         	 <button name="%(action_bss_qrcode_imported_document_form)d" string="All documents" type="action"
                         	 domain="[('status','=','Success')]" />
                         	 <button name="%(action_bss_qrcode_imported_document_form)d" string="All succeed documents" type="action"
