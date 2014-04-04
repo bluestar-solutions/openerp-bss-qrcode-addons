@@ -11,7 +11,7 @@
 		        	<sheet>
 						<div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
                         	 <button name="%(action_bss_qrcode_imported_document_form)d" string="All documents" type="action"
-                        	 attrs="{'invisible': [('status', '=', 'success')]}" />
+                        	 context="{'import_id':import_id}" />
                     	</div>
                     	
 						<div class="oe_title">							
