@@ -9,12 +9,19 @@
 	        <field name="arch" type="xml">
 	        	<form create="false" edit="false" string="Imported document" version="7.0">        	
 		        	<sheet>
+		        		<label for="filename"/>
 	               		<field name="filename" />
+	               		<label for="import_id"/>
 	               		<field name="import_id" />
-						<field name="status" />					               		
+	               		<label for="status"/>
+						<field name="status" />
+						<label for="message"/>			               		
 	               		<field name="message" />
+	               		<label for="qrcode_create_date"/>
 	               		<field name="qrcode_create_date" />
+	               		<label for="oe_object"/>
 	               		<field name="oe_object" />
+	               		<label for="report"/>
 	               		<field name="report" />
 					</sheet>
 				</form>
@@ -26,7 +33,7 @@
 	        <field name="name">Imported document</field>
 	        <field name="model">bss_qrcode.imported_document</field>
             <field name="arch" type="xml">
-            	<tree create="false" edit="false" string="Imported document" version="7.0">
+            	<tree colors="darkgreen:status=='success';darkred:status=='fail';darkblue:status=='not_found'" create="false" edit="false" string="Imported document" version="7.0">
                		<field name="filename" />
                		<field name="import_id" />
 					<field name="status" />					               		
