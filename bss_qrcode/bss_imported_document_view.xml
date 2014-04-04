@@ -10,19 +10,20 @@
 	        	<form create="false" edit="false" string="Imported document" version="7.0">        	
 		        	<sheet>
 		        		<label for="filename"/>
-	               		<field name="filename" />
+	               		<field name="filename"/>
+               		<label for="qrcode_create_date"/>
+	               		<field name="qrcode_create_date"/>
 	               		<label for="import_id"/>
-	               		<field name="import_id" />
+	               		<field name="import_id"/>
 	               		<label for="status"/>
-						<field name="status" />
-						<label for="message"/>			               		
-	               		<field name="message" />
-	               		<label for="qrcode_create_date"/>
-	               		<field name="qrcode_create_date" />
+						<field name="status"/>
+						<label for="message"/>
+	               		<field name="message"/>
+	
 	               		<label for="oe_object"/>
-	               		<field name="oe_object" />
+	               		<field name="oe_object"/>
 	               		<label for="report"/>
-	               		<field name="report" />
+	               		<field name="report"/>
 					</sheet>
 				</form>
 	        </field>
