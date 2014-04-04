@@ -16,10 +16,19 @@
                         	 	type="action" />
                         	 <button 
                         	 	name="%(action_bss_qrcode_imported_document_form)d" 
-                        	 	string="All succeed documents"
+                        	 	string="Succeed documents"
                         	 	type="action"
-                        	 	context= "{'toto':'success'}"
-                        	 	domain="[('toto','=','success')]" />
+                        	 	context= "{'status': 'success'}"/>
+                        	 <button 
+                        	 	name="%(action_bss_qrcode_imported_document_form)d" 
+                        	 	string="Failed documents"
+                        	 	type="action"
+                        	 	context= "{'status': 'failed'}"/>
+                        	 <button 
+                        	 	name="%(action_bss_qrcode_imported_document_form)d" 
+                        	 	string="Not found QR Code"
+                        	 	type="action"
+                        	 	context= "{'status': 'not_found'}"/>
                     	</div>
                     	
 						<div class="oe_title">							
