@@ -10,14 +10,7 @@
 	        	<form create="false" edit="false" string="Import" version="7.0">        	
 		        	<sheet>
 						<div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
-							<xpath expr="//div[@name='buttons']" position="inside">
-			                    <button name="%(action_bss_qrcode_imported_document_form)d" type="action"
-			                        string="Quotations and Sales"
-			                        
-			                        groups="base.group_sale_salesman"/>
-			                </xpath>
-                        	 <button name="%(action_bss_qrcode_imported_document_form)d" string="All documents" type="action"
-                        	 domain="[('status','=','Success')]" />
+                        	 <button name="%(action_bss_qrcode_imported_document_form)d" string="All documents" type="action" />
                         	 <button name="%(action_bss_qrcode_imported_document_form)d" string="All succeed documents" type="action"
                         	 context="{'status':'success'}" />
                     	</div>
