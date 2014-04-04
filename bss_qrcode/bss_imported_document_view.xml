@@ -17,8 +17,9 @@
 						<field name="status" />
 						<label for="message"/>			               		
 	               		<field name="message" />
+	               		<label for="qrcode_create_date"/>
 	               		<field name="qrcode_create_date" />
-	               		<label for="oe_object"/>
+	               		<label for="qrcode_create_date"/>
 	               		<field name="oe_object" />
 	               		<label for="report"/>
 	               		<field name="report" />
