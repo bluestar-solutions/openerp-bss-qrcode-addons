@@ -12,22 +12,22 @@
 						<div class="oe_right oe_button_box" name="buttons">
                         	 <button 
                         	 	name="%(action_bss_qrcode_imported_document_form)d" 
-                        	 	string="All documents" 
+                        	 	string="All" 
                         	 	type="action" 
                         	 	context= "{'status': ''}"/>
                         	 <button 
                         	 	name="%(action_bss_qrcode_imported_document_form)d" 
-                        	 	string="Succeed documents"
+                        	 	string="Succeed"
                         	 	type="action"
                         	 	context= "{'status': 'success'}"/>
                         	 <button 
                         	 	name="%(action_bss_qrcode_imported_document_form)d" 
-                        	 	string="Failed documents"
+                        	 	string="Failed"
                         	 	type="action"
                         	 	context= "{'status': 'fail'}"/>
                         	 <button 
                         	 	name="%(action_bss_qrcode_imported_document_form)d" 
-                        	 	string="Not found QR Code"
+                        	 	string="Not found"
                         	 	type="action"
                         	 	context= "{'status': 'not_found'}"/>
                     	</div>
