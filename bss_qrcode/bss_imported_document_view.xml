@@ -33,7 +33,7 @@
 	        <field name="name">Imported document</field>
 	        <field name="model">bss_qrcode.imported_document</field>
             <field name="arch" type="xml">
-            	<tree colors="darkgreen:status=='success';darkred:status=='fail';darkblue:status=='not_found'" create="false" edit="false" string="Imported document" version="7.0">
+            	<tree colors="darkgreen:status=='success';darkred:status=='fail';darkred:status=='not_found'" create="false" edit="false" string="Imported document" version="7.0">
                		<field name="filename" />
                		<field name="import_id" />
 					<field name="status" />					               		
