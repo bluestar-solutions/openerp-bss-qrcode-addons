@@ -18,7 +18,7 @@
                         	 	name="%(action_bss_qrcode_imported_document_form)d" 
                         	 	string="All succeed documents"
                         	 	type="action"
-                        	 	context= "{toto:'success'}"
+                        	 	context= "{'toto':'success'}"
                         	 	domain="[('toto','=','success')]" />
                     	</div>
                     	
