@@ -11,7 +11,7 @@
 		        	<sheet>
 						<div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
 							<xpath expr="//div[@name='buttons']" position="inside">
-			                    <button name="%(sale.act_res_partner_2_sale_order)d" type="action"
+			                    <button name="%(action_bss_qrcode_imported_document_form)d" type="action"
 			                        string="Quotations and Sales"
 			                        
 			                        groups="base.group_sale_salesman"/>
