@@ -61,12 +61,20 @@ class bss_import(osv.osv):
     _description = "Imported files from xmlrpc"
     _rec_name = 'create_date'
    
+    def get_success_nb(self, cr, uid, ids, name, args, context=None):
+        res = {}
+        bss_imported_document = self.pool.get('bss_qrcode.imported_document')
+        success_nb = bss_imported_document.search(cr, uid, [('id', '=', ids[0]), ('status', '=', 'success')], count=True)
+        res[ids[0]] = success_nb
+        return res
+    
     _columns = {
         'create_date' : fields.datetime('Date created', readonly=True),
         'identifier': fields.char('Identifier from java'),
         'imported_document_ids': fields.one2many('bss_qrcode.imported_document', 'import_id', string='Imported documents'),
         'status': fields.selection([('success','All documents succeed'), ('fail','At least one failed document')], 'Status', required=True),
-        'terminated': fields.boolean('Terminated'),    
+        'terminated': fields.boolean('Terminated'),  
+        'success_nb': fields.function(get_success_nb, method=True, store=False, string="Number of success", type="integer"),  
     }
     
     """ Set the import status to fail. """
