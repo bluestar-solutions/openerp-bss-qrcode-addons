@@ -38,7 +38,9 @@
 			                	<h1><field name="create_date" /></h1>
 			        		</group>
 			        		
-			        		<group col="3">
+			        		<group col="2"></group>
+			        		
+			        		<group col="2">
 			        			<field name="success_nb" />
 			        			<field name="fail_nb" />
 			        			<field name="not_found_nb" />
