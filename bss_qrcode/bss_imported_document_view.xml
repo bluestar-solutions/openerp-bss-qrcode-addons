@@ -52,6 +52,7 @@
             <field name="arch" type="xml">
                 <search string="Imported document">
                     <field name="status" string="Status"/>
+                    <field name="import_id" string="Import"/>
                     <field name="filename" string="filename"/>
                 </search>
              </field>
@@ -62,7 +63,7 @@
 	    	<field name="name">Imported document</field>
 	        <field name="res_model">bss_qrcode.imported_document</field>
 	        <field name="view_mode">tree,form</field>
-	        <field name="context">{'search_default_import_id': '2014-04-07 08:26:34', 'search_default_status': status}</field>
+	        <field name="context">{'search_default_import_id': import_id, 'search_default_status': status}</field>
 	    </record>
 
 	</data>
