@@ -93,8 +93,8 @@
 		            <separator/>
                 	<filter position="after" 
                 			name="default_filter" 
-                			domain="[('create_date','=',(context_today())]" 
-                			string="Today imports" />
+                			domain="[('create_date','=',(context_today()))]" 
+                			string="Today's imports" />
                 </search>
              </field>
          </record>
