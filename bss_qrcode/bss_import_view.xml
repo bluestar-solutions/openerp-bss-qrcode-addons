@@ -13,7 +13,7 @@
                         	 
                     	</div>
                     	
-		        		<group colspan="4" col="3">
+		        		<group col="3">
 			        		<group col="1">
 			        			<h1><separator string="Date created" /></h1>
 			                	<h1><field name="create_date" /></h1>
@@ -33,17 +33,17 @@
 	                        	 	string="All" 
 	                        	 	type="action" 
 	                        	 	context= "{'status': ''}"/>
-	                        	 <button 
+	                        	 <button class="oe_right oe_button_box"
 	                        	 	name="%(action_bss_qrcode_imported_document_form)d" 
 	                        	 	string="Succeed"
 	                        	 	type="action"
 	                        	 	context= "{'status': 'success'}"/>
-	                        	 <button 
+	                        	 <button class="oe_right oe_button_box"
 	                        	 	name="%(action_bss_qrcode_imported_document_form)d" 
 	                        	 	string="Failed"
 	                        	 	type="action"
 	                        	 	context= "{'status': 'fail'}"/>
-	                        	 <button 
+	                        	 <button class="oe_right oe_button_box"
 	                        	 	name="%(action_bss_qrcode_imported_document_form)d" 
 	                        	 	string="Not found"
 	                        	 	type="action"
