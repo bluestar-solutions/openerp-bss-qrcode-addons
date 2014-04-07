@@ -66,7 +66,7 @@ class bss_import(osv.osv):
         bss_imported_document = self.pool.get('bss_qrcode.imported_document')
         
         for import_id in ids:
-            res[import_id] = bss_imported_document.search(cr, uid, [('import_id', 'like', import_id), ('status', '=', arg['status'])], count=True)
+            res[import_id] = bss_imported_document.search(cr, uid, [('import_id', '=', import_id), ('status', 'like', arg['status'])], count=True)
 
         return res
     
