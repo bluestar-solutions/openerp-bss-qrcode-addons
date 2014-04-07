@@ -28,12 +28,12 @@
 			        		</group>
 			        		
 			        		<group col="1">
-			        			<button class="oe_right oe_button_box"
+			        			<button class="oe_right"
 	                        	 	name="%(action_bss_qrcode_imported_document_form)d" 
 	                        	 	string="All" 
 	                        	 	type="action" 
 	                        	 	context= "{'status': ''}"/>
-	                        	 <button class="oe_right oe_button_box"
+	                        	 <button class="oe_button_box"
 	                        	 	name="%(action_bss_qrcode_imported_document_form)d" 
 	                        	 	string="Succeed"
 	                        	 	type="action"
