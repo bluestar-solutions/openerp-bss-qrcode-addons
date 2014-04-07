@@ -70,7 +70,7 @@ class bss_import(osv.osv):
         return res
     
     _columns = {
-        'name': fields.date('Date created'),
+        'name': fields.char('Date created'),
         'create_date' : fields.datetime('Date created', readonly=True),
         'identifier': fields.char('Identifier from java'),
         'imported_document_ids': fields.one2many('bss_qrcode.imported_document', 'import_id', string='Imported documents'),
