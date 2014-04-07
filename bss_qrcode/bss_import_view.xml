@@ -74,6 +74,17 @@
         	</field>
 		</record>
 	    
+	    <!-- Filter view -->
+		<record model="ir.ui.view" id="view_bss_import_filter">
+            <field name="name">Import</field>
+            <field name="model">bss_qrcode.import</field>
+            <field name="arch" type="xml">
+                <search string="Import">
+                    <field name="date_created"/>
+                </search>
+             </field>
+         </record>
+         
 	    <!-- Actions -->
 		<record model="ir.actions.act_window" id="action_bss_qrcode_import_form">
 	    	<field name="name">Import</field>
