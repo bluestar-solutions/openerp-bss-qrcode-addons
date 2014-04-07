@@ -82,17 +82,17 @@ class bss_import(osv.osv):
         'total': fields.function(get_nb, arg={'status': '%'}, method=True, store=False, string="Total", type="integer"),  
     }
     
-#    def name_get(self, cr, uid, ids, context=None):
-#        if isinstance(ids, (list, tuple)) and not len(ids):
-#            return []
-#        if isinstance(ids, (long, int)):
-#            ids = [ids]
-#        reads = self.read(cr, uid, ids, ['create_date'], context=context)
-#        res = []
-#        for record in reads:
-#            name = "test"
-#            res.append((record['id'], name))
-#        return res
+    def name_get(self, cr, uid, ids, context=None):
+        if isinstance(ids, (list, tuple)) and not len(ids):
+            return []
+        if isinstance(ids, (long, int)):
+            ids = [ids]
+        reads = self.read(cr, uid, ids, ['create_date'], context=context)
+        res = []
+        for record in reads:
+            name = "test"
+            res.append((record['id'], name))
+        return res
     
     """ Set the import status to fail. """
     def set_status_to_fail(self, cr, uid, ids, myimport):
