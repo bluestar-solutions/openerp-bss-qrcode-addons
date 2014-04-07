@@ -62,9 +62,12 @@ class bss_import(osv.osv):
     _rec_name = 'create_date'
    
     def get_success_nb(self, cr, uid, ids, name, args, context=None):
+        print "GET SUCCESS NB"
+        print ids
         res = {}
         bss_imported_document = self.pool.get('bss_qrcode.imported_document')
         success_nb = bss_imported_document.search(cr, uid, [('id', '=', ids[0]), ('status', '=', 'success')], count=True)
+        print success_nb
         res[ids[0]] = success_nb
         return res
     
