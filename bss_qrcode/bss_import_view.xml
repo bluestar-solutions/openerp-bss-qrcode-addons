@@ -34,10 +34,11 @@
                     	
 		        		<group colspan="4" col="3">
 			        		<group col="1">
+			        			<h1><separator string="Date created" /></h1>
 			                	<h1><field name="create_date" /></h1>
 			        		</group>
 			        		
-			        		<group col="2">
+			        		<group col="3">
 			        			<field name="success_nb" />
 			        			<field name="fail_nb" />
 			        			<field name="not_found_nb" />
