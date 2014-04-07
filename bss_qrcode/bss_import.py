@@ -59,7 +59,7 @@ class bss_import(osv.osv):
     
     _name = 'bss_qrcode.import'
     _description = "Imported files from xmlrpc"
-    _rec_name = 'identifier'
+    _rec_name = 'create_date_char'
    
     def get_nb(self, cr, uid, ids, name, arg, context=None):
         res = {}
@@ -72,6 +72,9 @@ class bss_import(osv.osv):
     
     _columns = {
         'create_date' : fields.datetime('Date created', readonly=True),
+        'create_date_char' : fields.function((lambda self, cr, uid, ids, c={}: ids, ['create_date'], 10), 
+                                             method=True, store=False, readonly=True, string="Date created", 
+                                             type="char"), # Fix the bug on search filter of imported document
         'identifier': fields.char('Identifier from java'),
         'imported_document_ids': fields.one2many('bss_qrcode.imported_document', 'import_id', string='Imported documents'),
         'status': fields.selection([('success','All documents succeed'), ('fail','At least one failed document')], 'Status', required=True),
