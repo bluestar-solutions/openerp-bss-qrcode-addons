@@ -47,7 +47,7 @@
 	                        	 	name="%(action_bss_qrcode_imported_document_form)d" 
 	                        	 	string="All" 
 	                        	 	type="action" 
-	                        	 	context= "{'status': ''}"/>
+	                        	 	context= "{'import_id':'', 'status': ''}"/>
 			        		</group>
 		        		</group>
                     	
