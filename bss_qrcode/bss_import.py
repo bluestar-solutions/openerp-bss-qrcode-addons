@@ -90,7 +90,7 @@ class bss_import(osv.osv):
         reads = self.read(cr, uid, ids, ['create_date'], context=context)
         res = []
         for record in reads:
-            name = "test"
+            name = record['create_date']
             res.append((record['id'], name))
         return res
     
