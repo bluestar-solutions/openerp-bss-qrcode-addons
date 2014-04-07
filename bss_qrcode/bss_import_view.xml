@@ -27,7 +27,7 @@
 			        			<field name="total" />
 			        		</group>
 			        		
-			        		<group col="2">
+			        		<group col="1">
 			        			<button 
 	                        	 	name="%(action_bss_qrcode_imported_document_form)d" 
 	                        	 	string="All" 
