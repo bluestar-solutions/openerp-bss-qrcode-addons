@@ -70,15 +70,6 @@ class bss_import(osv.osv):
             res[import_id] = document
         return res
     
-    def get_total(self, cr, uid, ids, name, args, context=None):
-        res = {}
-        bss_imported_document = self.pool.get('bss_qrcode.imported_document')
-        
-        for import_id in ids:
-            total = bss_imported_document.search(cr, uid, [('import_id', '=', import_id)], count=True)
-            res[import_id] = total
-        return res
-    
     _columns = {
         'create_date' : fields.datetime('Date created', readonly=True),
         'identifier': fields.char('Identifier from java'),
@@ -86,9 +77,9 @@ class bss_import(osv.osv):
         'status': fields.selection([('success','All documents succeed'), ('fail','At least one failed document')], 'Status', required=True),
         'terminated': fields.boolean('Terminated'),  
         'success_nb': fields.function(get_nb, arg={'status': 'success'}, method=True, store=False, string="Number of successes", type="integer"),  
-        'fail_nb': fields.function(get_nb, method=True, store=False, string="Number of fails", type="integer"),  
-        'not_found_nb': fields.function(get_nb, method=True, store=False, string="Number of not found", type="integer"),  
-        'total': fields.function(get_total, method=True, store=False, string="Total", type="integer"),  
+        'fail_nb': fields.function(get_nb, arg={'status': 'fail'}, method=True, store=False, string="Number of fails", type="integer"),  
+        'not_found_nb': fields.function(get_nb, arg={'status': 'not_found'}, method=True, store=False, string="Number of not found", type="integer"),  
+        'total': fields.function(get_nb, arg={'status': ''}, method=True, store=False, string="Total", type="integer"),  
     }
     
     """ Set the import status to fail. """
