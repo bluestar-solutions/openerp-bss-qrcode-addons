@@ -71,7 +71,7 @@ class bss_import(osv.osv):
     
     _columns = {
         'create_date' : fields.datetime('Date created', readonly=True),
-
+        'name': fields.char('My name'),
         'identifier': fields.char('Identifier from java'),
         'imported_document_ids': fields.one2many('bss_qrcode.imported_document', 'import_id', string='Imported documents'),
         'status': fields.selection([('success','All documents succeed'), ('fail','At least one failed document')], 'Status', required=True),
@@ -82,17 +82,17 @@ class bss_import(osv.osv):
         'total': fields.function(get_nb, arg={'status': '%'}, method=True, store=False, string="Total", type="integer"),  
     }
     
-    def name_get(self, cr, uid, ids, context=None):
-        if isinstance(ids, (list, tuple)) and not len(ids):
-            return []
-        if isinstance(ids, (long, int)):
-            ids = [ids]
-        reads = self.read(cr, uid, ids, ['create_date'], context=context)
-        res = []
-        for record in reads:
-            name = "test"
-            res.append((record['id'], name))
-        return res
+#    def name_get(self, cr, uid, ids, context=None):
+#        if isinstance(ids, (list, tuple)) and not len(ids):
+#            return []
+#        if isinstance(ids, (long, int)):
+#            ids = [ids]
+#        reads = self.read(cr, uid, ids, ['create_date'], context=context)
+#        res = []
+#        for record in reads:
+#            name = "test"
+#            res.append((record['id'], name))
+#        return res
     
     """ Set the import status to fail. """
     def set_status_to_fail(self, cr, uid, ids, myimport):
