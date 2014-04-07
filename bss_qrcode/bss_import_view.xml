@@ -80,11 +80,11 @@
             <field name="model">bss_qrcode.import</field>
             <field name="arch" type="xml">
                 <search string="Import">
-                    <field name="create_date" string="Create date"/>
-                    <field name="success_nb" string="Number of successes"/>
-                    <field name="fail_nb" string="Number of fails"/>
-                    <field name="not_found_nb" string="Number of not found"/>
-                    <field name="total" string="Total"/>
+                    <field name="create_date"/>
+                    <field name="success_nb"/>
+                    <field name="fail_nb"/>
+                    <field name="not_found_nb"/>
+                    <field name="total"/>
                 </search>
              </field>
          </record>

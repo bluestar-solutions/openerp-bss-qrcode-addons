@@ -59,7 +59,6 @@ class bss_import(osv.osv):
     
     _name = 'bss_qrcode.import'
     _description = 'Imported files from xmlrpc'
-    _rec_name = 'create_date'
    
     def get_nb(self, cr, uid, ids, name, arg, context=None):
         res = {}
@@ -71,7 +70,7 @@ class bss_import(osv.osv):
         return res
     
     _columns = {
-#        'name': fields.char('Date created'),
+        'name': fields.char('Date created'),
         'create_date' : fields.datetime('Date created', readonly=True),
         'identifier': fields.char('Identifier from java'),
         'imported_document_ids': fields.one2many('bss_qrcode.imported_document', 'import_id', string='Imported documents'),
@@ -84,17 +83,17 @@ class bss_import(osv.osv):
     }
     
     # Override the function in order to fix the bug in the document import' search
-#    def name_get(self, cr, uid, ids, context=None):
-#        if isinstance(ids, (list, tuple)) and not len(ids):
-#            return []
-#        if isinstance(ids, (long, int)):
-#            ids = [ids]
-#        reads = self.read(cr, uid, ids, ['create_date'], context=context)
-#        res = []
-#        for record in reads:
-#            name = record['create_date']
-#            res.append((record['id'], name))
-#        return res
+    def name_get(self, cr, uid, ids, context=None):
+        if isinstance(ids, (list, tuple)) and not len(ids):
+            return []
+        if isinstance(ids, (long, int)):
+            ids = [ids]
+        reads = self.read(cr, uid, ids, ['create_date'], context=context)
+        res = []
+        for record in reads:
+            name = record['create_date']
+            res.append((record['id'], name))
+        return res
     
     """ Set the import status to fail. """
     def set_status_to_fail(self, cr, uid, ids, myimport):
