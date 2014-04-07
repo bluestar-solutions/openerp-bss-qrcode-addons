@@ -80,7 +80,7 @@
             <field name="model">bss_qrcode.import</field>
             <field name="arch" type="xml">
                 <search string="Import">
-                    <field name="create_date"/>
+<!--                     <field name="create_date"/>
                     <field name="success_nb"/>
                     <field name="fail_nb"/>
                     <field name="not_found_nb"/>
@@ -90,7 +90,7 @@
                     <filter name="Success"
 		                string="Success"
 		                domain="[('status','=','success')]" help="Successes import"/>
-		            <separator/>
+		            <separator/> -->
                 	<filter position="after" 
                 			name="default_filter" 
                 			domain="[('create_date','=',(context_today()))]" 
