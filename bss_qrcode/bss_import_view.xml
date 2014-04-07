@@ -92,7 +92,7 @@
 		                domain="[('status','=','success')]" help="Successes import"/>
 		            <separator/> -->
                 	<filter name="default_filter" 
-                			domain="[('create_date','>=','07.04.2014)]" 
+                			domain="[('create_date','>=',(context_today()) + '00:00:00' )]" 
                 			string="Today's imports" />
                 </search>
              </field>
