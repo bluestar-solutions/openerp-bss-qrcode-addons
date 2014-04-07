@@ -91,6 +91,10 @@
 		                string="Success"
 		                domain="[('status','=','success')]" help="Successes import"/>
 		            <separator/>
+                	<filter position="after" 
+                			name="default_filter" 
+                			domain="[('create_date','=',(context_today())]" 
+                			string="Today imports" />
                 </search>
              </field>
          </record>
