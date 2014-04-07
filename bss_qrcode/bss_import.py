@@ -66,7 +66,7 @@ class bss_import(osv.osv):
         bss_imported_document = self.pool.get('bss_qrcode.imported_document')
         
         for import_id in ids:
-            res[import_id] = bss_imported_document.search(cr, uid, [('import_id', '=', import_id), ('status', '=', arg['status'])], count=True)
+            res[import_id] = bss_imported_document.search(cr, uid, [('import_id', 'ilike', import_id), ('status', '=', arg['status'])], count=True)
 
         return res
     
@@ -79,7 +79,7 @@ class bss_import(osv.osv):
         'success_nb': fields.function(get_nb, arg={'status': 'success'}, method=True, store=False, string="Number of successes", type="integer"),  
         'fail_nb': fields.function(get_nb, arg={'status': 'fail'}, method=True, store=False, string="Number of fails", type="integer"),  
         'not_found_nb': fields.function(get_nb, arg={'status': 'not_found'}, method=True, store=False, string="Number of not found", type="integer"),  
-        'total': fields.function(get_nb, arg={'status': ''}, method=True, store=False, string="Total", type="integer"),  
+        'total': fields.function(get_nb, arg={'status': '%'}, method=True, store=False, string="Total", type="integer"),  
     }
     
     """ Set the import status to fail. """
