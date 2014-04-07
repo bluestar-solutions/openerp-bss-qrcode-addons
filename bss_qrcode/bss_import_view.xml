@@ -53,6 +53,7 @@
                		<field name="success_nb" />
                		<field name="fail_nb" />
                		<field name="not_found_nb" />
+               		<field name="total" />
                		<field name="imported_document_ids" />
                		<field name="status" invisible="1" />
                 </tree>

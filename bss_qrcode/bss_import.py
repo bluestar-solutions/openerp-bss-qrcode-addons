@@ -61,31 +61,22 @@ class bss_import(osv.osv):
     _description = "Imported files from xmlrpc"
     _rec_name = 'create_date'
    
-    def get_success_nb(self, cr, uid, ids, name, args, context=None):
+    def get_nb(self, cr, uid, ids, name, arg, context=None):
         res = {}
         bss_imported_document = self.pool.get('bss_qrcode.imported_document')
         
         for import_id in ids:
-            success_nb = bss_imported_document.search(cr, uid, [('import_id', '=', import_id), ('status', '=', 'success')], count=True)
-            res[import_id] = success_nb
+            document = bss_imported_document.search(cr, uid, [('import_id', '=', import_id), ('status', '=', arg.status)], count=True)
+            res[import_id] = document
         return res
     
-    def get_fail_nb(self, cr, uid, ids, name, args, context=None):
+    def get_total(self, cr, uid, ids, name, args, context=None):
         res = {}
         bss_imported_document = self.pool.get('bss_qrcode.imported_document')
         
         for import_id in ids:
-            fail_nb = bss_imported_document.search(cr, uid, [('import_id', '=', import_id), ('status', '=', 'fail')], count=True)
-            res[import_id] = fail_nb
-        return res
-    
-    def get_not_found_nb(self, cr, uid, ids, name, args, context=None):
-        res = {}
-        bss_imported_document = self.pool.get('bss_qrcode.imported_document')
-        
-        for import_id in ids:
-            not_found_nb = bss_imported_document.search(cr, uid, [('import_id', '=', import_id), ('status', '=', 'not_found')], count=True)
-            res[import_id] = not_found_nb
+            total = bss_imported_document.search(cr, uid, [('import_id', '=', import_id)], count=True)
+            res[import_id] = total
         return res
     
     _columns = {
@@ -94,9 +85,10 @@ class bss_import(osv.osv):
         'imported_document_ids': fields.one2many('bss_qrcode.imported_document', 'import_id', string='Imported documents'),
         'status': fields.selection([('success','All documents succeed'), ('fail','At least one failed document')], 'Status', required=True),
         'terminated': fields.boolean('Terminated'),  
-        'success_nb': fields.function(get_success_nb, method=True, store=False, string="Number of successes", type="integer"),  
-        'fail_nb': fields.function(get_fail_nb, method=True, store=False, string="Number of fails", type="integer"),  
-        'not_found_nb': fields.function(get_not_found_nb, method=True, store=False, string="Number of not found", type="integer"),  
+        'success_nb': fields.function(get_nb, arg={'status': 'success'}, method=True, store=False, string="Number of successes", type="integer"),  
+        'fail_nb': fields.function(get_nb, method=True, store=False, string="Number of fails", type="integer"),  
+        'not_found_nb': fields.function(get_nb, method=True, store=False, string="Number of not found", type="integer"),  
+        'total': fields.function(get_total, method=True, store=False, string="Total", type="integer"),  
     }
     
     """ Set the import status to fail. """
