@@ -51,6 +51,8 @@
             	<tree colors="darkred:status=='fail';darkgreen:status=='success'" create="false" edit="false" string="Import" version="7.0">
                		<field name="create_date" />
                		<field name="success_nb" />
+               		<field name="fail_nb" />
+               		<field name="not_found_nb" />
                		<field name="imported_document_ids" />
                		<field name="status" invisible="1" />
                 </tree>
