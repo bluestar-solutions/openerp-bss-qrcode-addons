@@ -59,6 +59,7 @@ class bss_import(osv.osv):
     
     _name = 'bss_qrcode.import'
     _description = 'Imported files from xmlrpc'
+    _order = 'create_date DESC'
    
     def get_nb(self, cr, uid, ids, name, arg, context=None):
         res = {}

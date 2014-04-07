@@ -52,7 +52,6 @@
             <field name="arch" type="xml">
                 <search string="Imported document">
                     <field name="status" string="Status"/>
-                    <field name="import_id" string="Import"/>
                     <field name="filename" string="filename"/>
                 </search>
              </field>
