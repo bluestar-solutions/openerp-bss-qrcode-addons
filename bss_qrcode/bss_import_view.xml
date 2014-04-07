@@ -30,11 +30,6 @@
 			        		<group col="1">
 			        			<button class="oe_right"
 	                        	 	name="%(action_bss_qrcode_imported_document_form)d" 
-	                        	 	string="All" 
-	                        	 	type="action" 
-	                        	 	context= "{'status': ''}"/>
-	                        	 <button class="oe_right"
-	                        	 	name="%(action_bss_qrcode_imported_document_form)d" 
 	                        	 	string="Succeed"
 	                        	 	type="action"
 	                        	 	context= "{'status': 'success'}"/>
@@ -48,6 +43,11 @@
 	                        	 	string="Not found"
 	                        	 	type="action"
 	                        	 	context= "{'status': 'not_found'}"/>
+	                        	 <button class="oe_right"
+	                        	 	name="%(action_bss_qrcode_imported_document_form)d" 
+	                        	 	string="All" 
+	                        	 	type="action" 
+	                        	 	context= "{'status': ''}"/>
 			        		</group>
 		        		</group>
                     	
