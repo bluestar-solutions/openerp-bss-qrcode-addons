@@ -85,6 +85,12 @@
                     <field name="fail_nb"/>
                     <field name="not_found_nb"/>
                     <field name="total"/>
+                    <field name="status"/>
+                    <separator/>
+                    <filter name="Success"
+		                string="Success"
+		                domain="[('status','=','success')]" help="Successes import"/>
+		            <separator/>
                 </search>
              </field>
          </record>
