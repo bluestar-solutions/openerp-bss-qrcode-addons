@@ -96,7 +96,7 @@
                 			string="Today's imports" /> -->
                 	<filter name="default_filter"
                 			string="Today" 
-                			domain="[('create_date','>=',((context_today())).strftime('%%Y-%%m-%%d 00:00:00')))]"/>
+                			domain="[('create_date','>=',((context_today())).strftime('%%Y-%%m-%%d 00:00:00'))]"/>
                 </search>
              </field>
          </record>
