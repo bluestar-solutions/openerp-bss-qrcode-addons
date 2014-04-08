@@ -19,7 +19,7 @@
 			                	<h1><field name="create_date" /></h1>
 			        		</group>
 			        		
-			        		<group col="1" rowspan="2">
+			        		<group col="1">
 			        			<div>
 				        			<button class="oe_right"
 		                        	 	name="%(action_bss_qrcode_imported_document_form)d" 
