@@ -50,9 +50,6 @@
 	                        	 	context= "{'import_id': id, 'status': ''}"/>
 			        		</group>
 		        		</group>
-                    	
-                    	<separator string="Documents" />
-		        		<field name="imported_document_ids" colspan="4" nolabel="1" /> 
 					</sheet>
 				</form>
 	        </field>
