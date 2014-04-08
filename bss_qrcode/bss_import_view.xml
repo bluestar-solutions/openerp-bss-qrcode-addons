@@ -20,6 +20,7 @@
 			        		</group>
 			        		
 			        		<group col="1">
+			        			<span>
 			        			<button class="oe_right"
 	                        	 	name="%(action_bss_qrcode_imported_document_form)d" 
 	                        	  	string="Succeed"
@@ -30,6 +31,8 @@
 	                        	 	string="Failed"
 	                        	 	type="action"
 	                        	 	context= "{'import_id': id, 'status': 'fail'}"/>
+	                        	 </span>
+	                        	 <span>
 	                        	 <button class="oe_right"
 	                        	 	name="%(action_bss_qrcode_imported_document_form)d" 
 	                        	 	string="Not found"
@@ -40,6 +43,7 @@
 	                        	 	string="All" 
 	                        	 	type="action" 
 	                        	 	context= "{'import_id': id, 'status': ''}"/>
+	                        	 </span>
 			        		</group>
 		        		</group>
 		        		<group col="2">
