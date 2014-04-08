@@ -13,21 +13,13 @@
                         	 
                     	</div>
                     	
-		        		<group col="4">
+		        		<group col="3">
 			        		<group col="1">
 			        			<h1><separator string="Date created" /></h1>
 			                	<h1><field name="create_date" /></h1>
 			        		</group>
 			        		
 			        		<group col="2">
-			        			<field name="success_nb" />
-			        			<field name="fail_nb" />
-			        			<field name="not_found_nb" />
-			        			<separator orientation="horizontal" colspan="2" />
-			        			<field name="total" />
-			        		</group>
-			        		
-			        		<group col="1">
 			        			<button class="oe_right"
 	                        	 	name="%(action_bss_qrcode_imported_document_form)d" 
 	                        	 	string="Succeed"
@@ -49,6 +41,13 @@
 	                        	 	type="action" 
 	                        	 	context= "{'import_id': id, 'status': ''}"/>
 			        		</group>
+		        		</group>
+		        		<group col="2">
+		        			<field name="success_nb" />
+		        			<field name="fail_nb" />
+		        			<field name="not_found_nb" />
+		        			<separator orientation="horizontal" colspan="2" />
+		        			<field name="total" />
 		        		</group>
 					</sheet>
 				</form>
