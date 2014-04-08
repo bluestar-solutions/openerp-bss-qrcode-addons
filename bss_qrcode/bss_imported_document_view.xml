@@ -54,6 +54,11 @@
                     <field name="status" string="Status"/>
                     <field name="import_id" string="Import"/>
                     <field name="filename" string="Filename"/>
+                    <filter 
+                    	name="Unsuccess"
+		                string="Unsuccess"
+		                domain="[('status','!=','success')]" 
+		                help="Failed or not found QR Code"/>
                 </search>
              </field>
          </record>
