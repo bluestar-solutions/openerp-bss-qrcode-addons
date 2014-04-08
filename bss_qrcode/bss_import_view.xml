@@ -28,9 +28,9 @@
 		                        	 	context= "{'import_id': id, 'status': 'success'}"/>
 		                        	 <button class="oe_right"
 		                        	 	name="%(action_bss_qrcode_imported_document_form)d" 
-		                        	 	string="Failed"
-		                        	 	type="action"
-		                        	 	context= "{'import_id': id, 'status': 'fail'}"/>
+		                        	 	string="All" 
+		                        	 	type="action" 
+		                        	 	context= "{'import_id': id, 'status': ''}"/>
 	                        	 </div>
 	                        	 <div>
 		                        	 <button class="oe_right"
@@ -38,11 +38,11 @@
 		                        	 	string="Not found"
 		                        	 	type="action"
 		                        	 	context= "{'import_id': id, 'status': 'not_found'}"/>
-		                        	 <button class="oe_right"
+	                        	 	<button class="oe_right"
 		                        	 	name="%(action_bss_qrcode_imported_document_form)d" 
-		                        	 	string="All" 
-		                        	 	type="action" 
-		                        	 	context= "{'import_id': id, 'status': ''}"/>
+		                        	 	string="Failed"
+		                        	 	type="action"
+		                        	 	context= "{'import_id': id, 'status': 'fail'}"/>	                        	 
 	                        	 </div>
 			        		</group>
 		        		</group>
