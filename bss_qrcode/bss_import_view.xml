@@ -19,11 +19,11 @@
 			                	<h1><field name="create_date" /></h1>
 			        		</group>
 			        		
-			        		</group>>
+			        		<group col="1">
 			        			<button class="oe_right"
 	                        	 	name="%(action_bss_qrcode_imported_document_form)d" 
 	                        	  	string="Succeed"
-	                        	 	type="action"	
+	                        	 	type="action"
 	                        	 	context= "{'import_id': id, 'status': 'success'}"/>
 	                        	 <button class="oe_right"
 	                        	 	name="%(action_bss_qrcode_imported_document_form)d" 
@@ -40,7 +40,8 @@
 	                        	 	string="All" 
 	                        	 	type="action" 
 	                        	 	context= "{'import_id': id, 'status': ''}"/>
-	                        	 	
+			        		</group>
+		        		</group>
 		        		<group col="2">
 		        			<field name="success_nb" />
 		        			<field name="fail_nb" />
