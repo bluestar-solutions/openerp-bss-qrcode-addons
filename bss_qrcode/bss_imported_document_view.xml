@@ -53,7 +53,7 @@
                 <search string="Imported document">
                     <field name="status" string="Status"/>
                     <field name="import_id" string="Import"/>
-                    <field name="filename" string="filename"/>
+                    <field name="filename" string="Filename"/>
                 </search>
              </field>
          </record>
