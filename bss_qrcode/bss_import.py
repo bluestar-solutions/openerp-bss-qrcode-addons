@@ -73,10 +73,9 @@ class bss_import(osv.osv):
     _columns = {
         'name': fields.char('Date created'),
         'create_date' : fields.datetime('Date created', readonly=True),
-        'identifier': fields.char('Identifier from java'),
         'imported_document_ids': fields.one2many('bss_qrcode.imported_document', 'import_id', string='Imported documents'),
         'status': fields.selection([('success','All documents succeed'), ('fail','At least one failed document')], 'Status', required=True),
-        'terminated': fields.boolean('Terminated'),  
+        'progression': fields.selection([('finished','Finished'), ('in_progress','In progress'), ('error','Error')], 'Progression', required=True),
         'success_nb': fields.function(get_nb, arg={'status': 'success'}, method=True, store=False, string="Number of successes", type="integer"),  
         'fail_nb': fields.function(get_nb, arg={'status': 'fail'}, method=True, store=False, string="Number of fails", type="integer"),  
         'not_found_nb': fields.function(get_nb, arg={'status': 'not_found'}, method=True, store=False, string="Number of not found", type="integer"),  
@@ -100,8 +99,8 @@ class bss_import(osv.osv):
     def set_status_to_fail(self, cr, uid, ids, myimport):
         myimport.write({'status': FAIL})
         
-    """ Add the document to the correct column (i.e success, fail or qrcode_not_found).  """
-    def add_document_to_column(self, cr, uid, myimport, qrcode_id, document):
+    """ Add the document; one to the imported document and a second to target object.  """
+    def attach_document(self, cr, uid, myimport, qrcode_id, document):
         qrcode = None
         
         # 1. The QR Code is not found
@@ -169,20 +168,14 @@ class bss_import(osv.osv):
         return row_id
         
     """ Function called by an xmlrpc connection. Create an import object with documents. """
-    def add_to_import_object(self, cr, uid, java_identifier, qrcode_id, document):
-        import_id = self.search(cr, uid, [('identifier', '=', java_identifier)])
+    def add_to_import_object(self, cr, uid, import_id, qrcode_id, document):
         
-        # If the import object already exists then use it, create it else
-        if import_id:
-            myimport = self.read(cr, uid, import_id[0])
-            # In order to have a dictionary and not an array
-            myimport = self.browse(cr, uid, myimport['id'])
-        else:
-            myimport_id = self.create(cr, uid, {'identifier': java_identifier, 'status': SUCCESS})
-            myimport = self.browse(cr, uid, myimport_id)
+        myimport = self.read(cr, uid, import_id)
         
-        # Add the document to the correct column
-        row_id = self.add_document_to_column(cr, uid, myimport, qrcode_id, document)
+        # In order to have a dictionary and not an array
+        myimport = self.browse(cr, uid, myimport['id'])
+
+        row_id = self.attach_document(cr, uid, myimport, qrcode_id, document)
         
         return row_id 
                  
