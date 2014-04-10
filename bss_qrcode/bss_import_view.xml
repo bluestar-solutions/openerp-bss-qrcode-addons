@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<!-- Form view -->
+		<record model="ir.ui.view" id="view_bss_qrcode_import_form">
+	        <field name="name">Import</field>
+	        <field name="model">bss_qrcode.import</field>
+	        <field name="arch" type="xml">
+	        	<form create="false" edit="false" string="Import" version="7.0">        	
+		        	<sheet>
+						<div class="oe_title">							
+							<label for="create_date"/> 
+							<h3><field name="create_date"/></h3>
+						</div>
+						<notebook>
+                            <page string="Successfully imported files">
+								<field name="success_ids">
+									<form>
+					               		<field name="filename" />
+										<field name="report" />					               		
+					               		<field name="qrcode_create_date" />
+					               		<field name="oe_version" />
+					               		<field name="document" />
+									</form>
+									<tree>
+					               		<field name="filename" />
+										<field name="report" />					               		
+					               		<field name="qrcode_create_date" />
+					               		<field name="oe_version" />
+									</tree>
+								</field>
+							</page>
+							<page string="Failed imported files">
+								<field name="fail_ids">
+									<form>
+					               		<field name="filename" />
+										<field name="report" />					               		
+					               		<field name="qrcode_create_date" />
+					               		<field name="oe_version" />
+					               		<field name="document" />
+									</form>
+									<tree>
+					               		<field name="filename" />
+										<field name="report" />					               		
+					               		<field name="qrcode_create_date" />
+					               		<field name="oe_version" />
+									</tree>
+								</field>
+							</page>
+							<page string="QR Code not found">
+								<field name="qrcode_not_found_ids" />
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+	        </field>
+    	</record>
+    
+    	<!-- Tree view -->
+		<record model="ir.ui.view" id="view_bss_qrcode_import_tree">
+        	<field name="name">Import</field>
+            <field name="model">bss_qrcode.import</field>
+            <field name="arch" type="xml">
+            	<tree colors="darkred:status=='fail';darkgreen:status=='success'" create="false" edit="false" string="Import" version="7.0">
+               		<field name="terminated" />
+               		<field name="create_date" />
+               		<field name="success_ids" />
+               		<field name="fail_ids" />
+               		<field name="qrcode_not_found_ids" />
+               		<field name="status" invisible="1" />
+                </tree>
+        	</field>
+		</record>
+	    
+	    <!-- Actions -->
+		<record model="ir.actions.act_window" id="action_bss_qrcode_import_form">
+	    	<field name="name">Import</field>
+	        <field name="res_model">bss_qrcode.import</field>
+	        <field name="view_mode">tree,form</field>
+	    </record>
+	    
+	    <!-- Menu -->
+	    <menuitem name="QR Code"  id="base.menu_base_qrcode"/>
+		<menuitem name="QR Code" id="base.menu_module_qrcode" parent="base.menu_base_qrcode"/>
+		<menuitem action="action_bss_qrcode_import_form" id="base.action_bss_qrcode_import" parent="base.menu_module_qrcode"/>
+
+	</data>
+</openerp>
