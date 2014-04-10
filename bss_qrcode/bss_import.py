@@ -30,6 +30,8 @@ SUCCESS = "success"
 FAIL = "fail"
 NOT_FOUND = "not_found"
 FILENAME_QRCODE_NOT_FOUND = "qrcode_not_found"
+PROCESSED = "processed"
+UNPROCESSED = "unprocessed"
    
 """ Imported document. """            
 class bss_imported_document(osv.osv):
@@ -100,8 +102,9 @@ class bss_import(osv.osv):
     def set_status_to_fail(self, cr, uid, ids, myimport):
         myimport.write({'status': FAIL})
         
-    """ Add the document; one to the imported document and a second to target object.  """
-    def attach_document(self, cr, uid, myimport, qrcode_id, document):
+    """ Process document by creating the imported document and attach the file to it.
+        Moreover attach the file to the concerned object or make a custom action.  """
+    def process_document(self, cr, uid, myimport, qrcode_id, document):
         qrcode = None
         
         # 1. The QR Code is not found
@@ -109,6 +112,7 @@ class bss_import(osv.osv):
             imported_document = {
                 'import_id': myimport.id,
                 'status': NOT_FOUND,
+                'processed': UNPROCESSED,
                 'qrcode_id': qrcode_id,
                 'message': NOT_FOUND_MSG,
             }
@@ -121,6 +125,7 @@ class bss_import(osv.osv):
                 imported_document = {
                     'import_id': myimport.id,
                     'status': FAIL,
+                    'processed': UNPROCESSED,
                     'qrcode_id': qrcode_id,
                     'message': FAIL_QRCODE_MSG,
                 }
@@ -133,6 +138,7 @@ class bss_import(osv.osv):
                     imported_document = {
                         'import_id': myimport.id,
                         'status': FAIL,
+                        'processed': UNPROCESSED,
                         'qrcode_id': qrcode_id,
                         'message': FAIL_OBJECT_MSG,
                     }
@@ -142,6 +148,7 @@ class bss_import(osv.osv):
                     imported_document = {
                         'import_id': myimport.id,
                         'status': SUCCESS,
+                        'processed': PROCESSED,
                         'qrcode_id': qrcode_id,
                         'message': SUCCESS_MSG,
                     }
@@ -176,7 +183,7 @@ class bss_import(osv.osv):
         # In order to have a dictionary and not an array
         myimport = self.browse(cr, uid, myimport['id'])
 
-        row_id = self.attach_document(cr, uid, myimport, qrcode_id, document)
+        row_id = self.process_document(cr, uid, myimport, qrcode_id, document)
         
         return row_id
                  
