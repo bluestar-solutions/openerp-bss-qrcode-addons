@@ -177,6 +177,6 @@ class bss_import(osv.osv):
 
         row_id = self.attach_document(cr, uid, myimport, qrcode_id, document)
         
-        return row_id 
+        return row_id
                  
 bss_import()

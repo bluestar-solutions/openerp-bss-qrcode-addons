@@ -71,5 +71,23 @@ class bss_qrcode(osv.osv):
         output.close()
         
         return content
+    
+    """ Attach the file to the concerned openerp object. """
+    def attach_file(self, cr, uid, ids, document):
+        # When I call the function from pyunit test
+        if isinstance(ids, list):
+            ids = ids[0]
+        
+        qrcode = self.read(cr, uid, ids, [], {})
+        
+        ir_attachment = self.pool.get('ir.attachment')
+        ir_attachment.create(cr, uid, {
+        'name': qrcode['filename'],
+        'datas_fname': qrcode['filename'],
+        'res_model': qrcode['oe_object'],
+        'res_id': qrcode['oe_id'],
+        'type': 'binary',
+        'db_datas': document,
+        })
             
 bss_qrcode()
