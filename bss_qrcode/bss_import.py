@@ -55,6 +55,10 @@ class bss_imported_document(osv.osv):
         'filename': fields.related('qrcode_id', 'filename', type='char', string='Filename', store=False),
     }
     
+    _defaults = {
+        'state': 'unprocessed',
+    }
+    
     "Set the state to processed"
     def action_processed(self, cr, uid, ids, context=None):
         for imported_document in self.browse(cr, uid, ids, context):

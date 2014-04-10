@@ -11,7 +11,7 @@
 	        		<header>
 						<button name="action_processed" string="Processed" type="object" states="unprocessed" class="oe_highlight"/>
 						<button name="action_unprocessed" string="Unprocessed" type="object" states="processed" />
-						<field name="state" widget="statusbar" statusbar_colors='{"Unprocessed":"red", "Processed":"green"}' readonly="1" />
+						<field name="state" widget="statusbar" statusbar_colors='{"unprocessed":"red", "processed":"green"}' readonly="1" />
 	        		</header>       	
 		        	<sheet>
 		        		<label for="filename"/>
