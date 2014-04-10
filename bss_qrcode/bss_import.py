@@ -107,14 +107,18 @@ class bss_import(osv.osv):
         'create_date' : fields.datetime('Date created', readonly=True),
         'imported_document_ids': fields.one2many('bss_qrcode.imported_document', 'import_id', string='Imported documents'),
         'status': fields.selection([('success','All documents succeed'), ('fail','At least one failed document')], 'Status', required=True),
-        'state': fields.function(_get_state, method=True, type='selection', string='State', required=True, store=False),
+        'state': fields.selection([('success','All documents succeed'), ('fail','At least one failed document')], 'Status', required=True),
         'progression': fields.selection([('finished','Finished'), ('in_progress','In progress'), ('error','Error')], 'Progression', required=True),
         'success_nb': fields.function(get_nb, arg={'status': 'success'}, method=True, store=False, string="Number of successes", type="integer"),  
         'fail_nb': fields.function(get_nb, arg={'status': 'fail'}, method=True, store=False, string="Number of fails", type="integer"),  
         'not_found_nb': fields.function(get_nb, arg={'status': 'not_found'}, method=True, store=False, string="Number of not found", type="integer"),  
         'total': fields.function(get_nb, arg={'status': '%'}, method=True, store=False, string="Total", type="integer"),  
     }
-    
+       
+    _defaults = {
+        'state': 'unprocessed',
+    }
+     
     # Override the function in order to fix the bug in the document import' search
     def name_get(self, cr, uid, ids, context=None):
         if isinstance(ids, (list, tuple)) and not len(ids):
