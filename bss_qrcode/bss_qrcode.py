@@ -82,12 +82,12 @@ class bss_qrcode(osv.osv):
         
         ir_attachment = self.pool.get('ir.attachment')
         ir_attachment.create(cr, uid, {
-        'name': qrcode['filename'],
-        'datas_fname': qrcode['filename'],
-        'res_model': qrcode['oe_object'],
-        'res_id': qrcode['oe_id'],
-        'type': 'binary',
-        'db_datas': document,
+            'name': qrcode['filename'],
+            'datas_fname': qrcode['filename'],
+            'res_model': qrcode['oe_object'],
+            'res_id': qrcode['oe_id'],
+            'type': 'binary',
+            'db_datas': document,
         })
             
 bss_qrcode()
