@@ -9,8 +9,7 @@
 	        <field name="arch" type="xml">
 	        	<form create="false" edit="false" string="Imported document" version="7.0"> 
 	        		<header>
-	        			<button name="process" string="Processed document" type="object" states="processed"/>
-	        			<button name="unprocess" string="Unprocessed document" type="object" states="unprocessed"/>
+
 	        		</header>       	
 		        	<sheet>
 		        		<label for="filename"/>
