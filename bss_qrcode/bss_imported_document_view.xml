@@ -7,7 +7,11 @@
 	        <field name="name">Imported document</field>
 	        <field name="model">bss_qrcode.imported_document</field>
 	        <field name="arch" type="xml">
-	        	<form create="false" edit="false" string="Imported document" version="7.0">      	
+	        	<form create="false" edit="false" string="Imported document" version="7.0"> 
+	        		<header>
+						<button name="action_processed" string="Processed" type="object" states="unprocessed" />
+						<button name="action_unprocessed" string="Unprocessed" type="object" states="processed" />
+	        		</header>       	
 		        	<sheet>
 		        		<label for="filename"/>
 	               		<field name="filename"/>
@@ -15,6 +19,8 @@
 	               		<field name="import_id"/>
 	               		<label for="status"/>
 						<field name="status"/>
+	               		<label for="state"/>
+						<field name="state"/>
 						<label for="message"/>
 	               		<field name="message"/>
 	               		<label for="qrcode_create_date"/>
@@ -37,6 +43,7 @@
                		<field name="filename" />
                		<field name="import_id" />
 					<field name="status" />
+					<field name="state" />			               		
                		<field name="message" />
                		<field name="qrcode_create_date" />
                		<field name="oe_object" />

@@ -43,7 +43,7 @@ class bss_imported_document(osv.osv):
     _columns = {
         'import_id': fields.many2one('bss_qrcode.import', string="Imported date", ondelete='cascade', required=True, readonly=True),
         'status': fields.selection([('success','Success'), ('fail','Fail'), ('not_found', 'QR Code not found')], string='Status', required=True),
-        'processed': fields.selection([('processed','Processed'), ('unprocessed','Unprocessed')], string='Processed', required=True),
+        'state': fields.selection([('processed','Processed'), ('unprocessed','Unprocessed')], string='State', required=True),
         'qrcode_id': fields.many2one('bss_qrcode.qrcode', string='File'),
         'message': fields.char('Message'),
         'qrcode_create_date': fields.related('qrcode_id', 'create_date', type='char', string='First download date', store=False),
@@ -78,6 +78,7 @@ class bss_import(osv.osv):
         'create_date' : fields.datetime('Date created', readonly=True),
         'imported_document_ids': fields.one2many('bss_qrcode.imported_document', 'import_id', string='Imported documents'),
         'status': fields.selection([('success','All documents succeed'), ('fail','At least one failed document')], 'Status', required=True),
+        'progression': fields.selection([('finished','Finished'), ('in_progress','In progress'), ('error','Error')], 'State', required=True),
         'success_nb': fields.function(get_nb, arg={'status': 'success'}, method=True, store=False, string="Number of successes", type="integer"),  
         'fail_nb': fields.function(get_nb, arg={'status': 'fail'}, method=True, store=False, string="Number of fails", type="integer"),  
         'not_found_nb': fields.function(get_nb, arg={'status': 'not_found'}, method=True, store=False, string="Number of not found", type="integer"),  
