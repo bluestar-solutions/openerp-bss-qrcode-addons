@@ -65,7 +65,7 @@ class bss_imported_document(osv.osv):
         for imported_document in self.browse(cr, uid, ids, context):
             print imported_document.id
             print imported_document.import_id
-            myimport = self.pool.get('bss_qrcode.import').browse(cr, uid, imported_document.import_id)
+            myimport = self.pool.get('bss_qrcode.import').browse(cr, uid, imported_document.import_id.id)
             print myimport.id
             myimport.write({'state': imported_document.state})
             
