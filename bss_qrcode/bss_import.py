@@ -63,7 +63,11 @@ class bss_imported_document(osv.osv):
     def onchange_state(self, cr, uid, ids, context=None):
         for imported_document in self.browse(cr, uid, ids, context):
             myimport = self.pool.get('bss_qrcode.import').browse(cr, uid, imported_document.import_id.id)
-            myimport.write({'state': imported_document.state})
+            count_unprocessed = self.search(cr, uid, [('import_id', '=', myimport.id), ('processed', '=', UNPROCESSED)], count=True)
+            if count_unprocessed > 0:
+                myimport.write({'state': UNPROCESSED})
+            else:
+                myimport.write({'state': PROCESSED})
             
     """ Set the state to processed. """
     def action_processed(self, cr, uid, ids, context=None):
