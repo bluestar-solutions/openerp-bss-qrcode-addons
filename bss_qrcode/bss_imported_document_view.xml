@@ -36,8 +36,7 @@
             	<tree colors="darkgreen:status=='success';darkred:status=='fail';darkred:status=='not_found'" create="false" edit="false" string="Imported document" version="7.0">
                		<field name="filename" />
                		<field name="import_id" />
-					<field name="status" />					               		
-					<field name="state" />			               		
+					<field name="status" />
                		<field name="message" />
                		<field name="qrcode_create_date" />
                		<field name="oe_object" />
