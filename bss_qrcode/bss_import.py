@@ -61,12 +61,8 @@ class bss_imported_document(osv.osv):
         
     """ Trigger import state when state of the document import change. """
     def onchange_state(self, cr, uid, ids, context=None):
-        print "ONCHANGE_STATE"
         for imported_document in self.browse(cr, uid, ids, context):
-            print imported_document.id
-            print imported_document.import_id
             myimport = self.pool.get('bss_qrcode.import').browse(cr, uid, imported_document.import_id.id)
-            print myimport.id
             myimport.write({'state': imported_document.state})
             
     """ Set the state to processed. """
@@ -187,10 +183,10 @@ class bss_import(osv.osv):
                         'message': SUCCESS_MSG,
                     }
                     self.pool.get('bss_qrcode.qrcode').attach_file(cr, uid, qrcode['id'], document)
-                    
-        row_id = self.pool.get('bss_qrcode.imported_document').create(cr, uid, imported_document)
-        doc_import = self.pool.get('bss_qrcode.imported_document').read(cr, uid, row_id)
-        doc_import.onchange_state(self, cr, uid, row_id)
+        
+        class_imported_document = self.pool.get('bss_qrcode.imported_document')          
+        row_id = class_imported_document.create(cr, uid, imported_document)
+        class_imported_document.onchange_state(self, cr, uid, row_id)
         
         # Filename attachment
         if qrcode is None:
