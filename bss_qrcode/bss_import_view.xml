@@ -76,6 +76,7 @@
                		<field name="not_found_nb" />
                		<field name="total" />
                		<field name="status" invisible="1" />
+               		<field name="progression" invisible="1" />
                 </tree>
         	</field>
 		</record>
