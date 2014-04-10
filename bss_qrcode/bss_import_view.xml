@@ -13,7 +13,7 @@
                         	 
                     	</div>
                     	
-		        		<group col="1">
+		        		<group col="2">
 			        		<group col="1">
 			        			<h1><separator string="Date created" /></h1>
 			                	<h1><field name="create_date" /></h1>
@@ -46,6 +46,10 @@
 	                        	 </div>
 			        		</group>
 		        		</group>
+		        		<label for="progression" />
+		        		<field name="progression" />
+		        		<label for="status" />
+	        			<field name="status" />
 		        		<group col="2">
 		        			<field name="success_nb" />
 		        			<field name="fail_nb" />
@@ -63,7 +67,7 @@
         	<field name="name">Import</field>
             <field name="model">bss_qrcode.import</field>
             <field name="arch" type="xml">
-            	<tree colors="darkred:status=='fail';darkgreen:status=='success'" create="false" edit="false" string="Import" version="7.0">
+            	<tree colors="darkgreen:status=='success';darkred:status=='fail';darkred:progression=='error';darkblue:progression=='in_progress'" create="false" edit="false" string="Import" version="7.0">
                		<field name="create_date" />
                		<field name="success_nb" />
                		<field name="fail_nb" />
