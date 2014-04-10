@@ -59,12 +59,12 @@ class bss_imported_document(osv.osv):
         'state': 'unprocessed',
     }
     
-    "Set the state to processed"
+    """ Set the state to processed. """
     def action_processed(self, cr, uid, ids, context=None):
         for imported_document in self.browse(cr, uid, ids, context):
             self.write(cr, uid, imported_document.id, {'state': PROCESSED}, context)
 
-    "Set the state to unprocessed"
+    """ Set the state to unprocessed. """
     def action_unprocessed(self, cr, uid, ids, context=None):
         for imported_document in self.browse(cr, uid, ids, context):
             self.write(cr, uid, imported_document.id, {'state': UNPROCESSED}, context)
@@ -87,27 +87,13 @@ class bss_import(osv.osv):
             res[import_id] = bss_imported_document.search(cr, uid, [('import_id', '=', import_id), ('status', 'like', arg['status'])], count=True)
 
         return res
-    
-    """ Get state of the import. Processed if all child are processed, Unprocessed if at least one child is unprocessed. """
-    def _get_state(self, cr, uid, ids, name, arg, context=None):
-        res = {}
-        
-        for import_id in ids:
-            nb_child_unprocessd = self.search(cr, uid, [('id', '=', import_id), ('state', '=', UNPROCESSED)], count=True)
-
-            if nb_child_unprocessd <= 0:
-                res[import_id] = PROCESSED
-            else:
-                res[import_id] = UNPROCESSED
-            
-        return res
         
     _columns = {
         'name': fields.char('Date created'),
         'create_date' : fields.datetime('Date created', readonly=True),
         'imported_document_ids': fields.one2many('bss_qrcode.imported_document', 'import_id', string='Imported documents'),
         'status': fields.selection([('success','All documents succeed'), ('fail','At least one failed document')], 'Status', required=True),
-        'state': fields.selection([('success','All documents succeed'), ('fail','At least one failed document')], 'Status', required=True),
+        'state': fields.selection([('unprocessed','Unprocessed'), ('processed','Processed')], string='State', required=True),
         'progression': fields.selection([('finished','Finished'), ('in_progress','In progress'), ('error','Error')], 'Progression', required=True),
         'success_nb': fields.function(get_nb, arg={'status': 'success'}, method=True, store=False, string="Number of successes", type="integer"),  
         'fail_nb': fields.function(get_nb, arg={'status': 'fail'}, method=True, store=False, string="Number of fails", type="integer"),  
@@ -119,7 +105,7 @@ class bss_import(osv.osv):
         'state': 'unprocessed',
     }
      
-    # Override the function in order to fix the bug in the document import' search
+    """ Override the function in order to fix the bug in the document import' search. """
     def name_get(self, cr, uid, ids, context=None):
         if isinstance(ids, (list, tuple)) and not len(ids):
             return []
@@ -131,6 +117,16 @@ class bss_import(osv.osv):
             name = record['create_date']
             res.append((record['id'], name))
         return res
+    
+    """ Trigger import state on change of the document import state. """
+    def onchange_state(self, cr, uid, ids, state):
+        print "ONCHANGE STATE"
+        v={}
+        
+        if state == UNPROCESSED:
+            myimport = self.pool.get('bss_qrcode.import').browse(cr, uid, 1)
+
+        return {'value': v}
     
     """ Set the import status to fail. """
     def set_status_to_fail(self, cr, uid, ids, myimport):
