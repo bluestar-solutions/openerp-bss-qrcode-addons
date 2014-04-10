@@ -54,6 +54,16 @@ class bss_imported_document(osv.osv):
         'report': fields.related('qrcode_id', 'report', type='char', string='Report', store=False),
         'filename': fields.related('qrcode_id', 'filename', type='char', string='Filename', store=False),
     }
+    
+    "Set the state to processed"
+    def action_processed(self, cr, uid, ids, context=None):
+        for imported_document in self.browse(cr, uid, ids, context):
+            self.write(cr, uid, imported_document.id, {'state': PROCESSED}, context)
+
+    "Set the state to unprocessed"
+    def action_unprocessed(self, cr, uid, ids, context=None):
+        for imported_document in self.browse(cr, uid, ids, context):
+            self.write(cr, uid, imported_document.id, {'state': UNPROCESSED}, context)
 
 bss_imported_document()
 
