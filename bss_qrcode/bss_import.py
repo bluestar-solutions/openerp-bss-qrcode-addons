@@ -93,7 +93,7 @@ class bss_import(osv.osv):
         res = {}
         
         for import_id in ids:
-            nb_child_unprocessd = self.search(cr, uid, [('import_id', '=', import_id), ('state', '=', UNPROCESSED)], count=True)
+            nb_child_unprocessd = self.search(cr, uid, [('id', '=', import_id), ('state', '=', UNPROCESSED)], count=True)
 
             if nb_child_unprocessd <= 0:
                 res[import_id] = PROCESSED
