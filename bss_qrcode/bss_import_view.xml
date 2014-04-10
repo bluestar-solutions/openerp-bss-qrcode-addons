@@ -46,10 +46,14 @@
 	                        	 </div>
 			        		</group>
 		        		</group>
-		        		<label for="progression" />
-		        		<field name="progression" />
-		        		<label for="status" />
-	        			<field name="status" />
+		        		
+		        		<group col="2">
+			        		<label for="progression" />
+			        		<field name="progression" />
+			        		<label for="status" />
+		        			<field name="status" />
+	        			</group>
+	        			
 		        		<group col="2">
 		        			<field name="success_nb" />
 		        			<field name="fail_nb" />
