@@ -61,7 +61,9 @@ class bss_imported_document(osv.osv):
         
     """ Trigger import state when state of the document import change. """
     def onchange_state(self, cr, uid, ids, context=None):
-        for imported_document in self.browse(cr, uid, ids, context):      
+        print "ONCHANGE_STATE"
+        for imported_document in self.browse(cr, uid, ids, context):
+            print imported_document.id 
             myimport = self.browse(cr, uid, imported_document.import_id)
             myimport.state = imported_document.state
             
@@ -70,12 +72,14 @@ class bss_imported_document(osv.osv):
         for imported_document in self.browse(cr, uid, ids, context):
             self.write(cr, uid, imported_document.id, {'state': PROCESSED}, context)
             self.onchange_state(cr, uid, ids)
+        return 1
 
     """ Set the state to unprocessed. """
     def action_unprocessed(self, cr, uid, ids, context=None):
         for imported_document in self.browse(cr, uid, ids, context):
             self.write(cr, uid, imported_document.id, {'state': UNPROCESSED}, context)
             self.onchange_state(cr, uid, ids)
+        return 1
 
 bss_imported_document()
 
