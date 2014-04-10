@@ -19,8 +19,8 @@
 	               		<field name="import_id"/>
 	               		<label for="status"/>
 						<field name="status"/>
-	               		<label for="processed"/>
-						<field name="processed"/>
+	               		<label for="state"/>
+						<field name="state"/>
 						<label for="message"/>
 	               		<field name="message"/>
 	               		<label for="qrcode_create_date"/>
@@ -43,7 +43,7 @@
                		<field name="filename" />
                		<field name="import_id" />
 					<field name="status" />					               		
-					<field name="processed" />			               		
+					<field name="state" />			               		
                		<field name="message" />
                		<field name="qrcode_create_date" />
                		<field name="oe_object" />
