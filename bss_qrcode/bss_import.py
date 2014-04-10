@@ -58,16 +58,24 @@ class bss_imported_document(osv.osv):
     _defaults = {
         'state': 'unprocessed',
     }
-    
+        
+    """ Trigger import state when state of the document import change. """
+    def onchange_state(self, cr, uid, ids, context=None):
+        for imported_document in self.browse(cr, uid, ids, context):      
+            myimport = self.browse(cr, uid, imported_document.import_id)
+            myimport.state = imported_document.state
+            
     """ Set the state to processed. """
     def action_processed(self, cr, uid, ids, context=None):
         for imported_document in self.browse(cr, uid, ids, context):
             self.write(cr, uid, imported_document.id, {'state': PROCESSED}, context)
+            self.onchange_state(cr, uid, ids)
 
     """ Set the state to unprocessed. """
     def action_unprocessed(self, cr, uid, ids, context=None):
         for imported_document in self.browse(cr, uid, ids, context):
             self.write(cr, uid, imported_document.id, {'state': UNPROCESSED}, context)
+            self.onchange_state(cr, uid, ids)
 
 bss_imported_document()
 
@@ -117,16 +125,6 @@ class bss_import(osv.osv):
             name = record['create_date']
             res.append((record['id'], name))
         return res
-    
-    """ Trigger import state on change of the document import state. """
-    def onchange_state(self, cr, uid, ids, state):
-        print "ONCHANGE STATE"
-        v={}
-        
-        if state == UNPROCESSED:
-            myimport = self.pool.get('bss_qrcode.import').browse(cr, uid, 1)
-
-        return {'value': v}
     
     """ Set the import status to fail. """
     def set_status_to_fail(self, cr, uid, ids, myimport):
@@ -185,6 +183,8 @@ class bss_import(osv.osv):
                     self.pool.get('bss_qrcode.qrcode').attach_file(cr, uid, qrcode['id'], document)
                     
         row_id = self.pool.get('bss_qrcode.imported_document').create(cr, uid, imported_document)
+        doc_import = self.pool.get('bss_qrcode.imported_document').read(cr, uid, row_id)
+        doc_import.onchange_state(self, cr, uid, row_id)
         
         # Filename attachment
         if qrcode is None:

@@ -9,7 +9,7 @@
 	        <field name="arch" type="xml">
 	        	<form create="false" edit="false" string="Imported document" version="7.0"> 
 	        		<header>
-						<button name="action_processed" string="Processed" type="action" states="unprocessed" class="oe_highlight"/>
+						<button name="action_processed" string="Processed" type="object" states="unprocessed" class="oe_highlight"/>
 						<button name="action_unprocessed" string="Unprocessed" type="object" states="processed" />
 						<field name="state" widget="statusbar" readonly="1" />
 	        		</header>
