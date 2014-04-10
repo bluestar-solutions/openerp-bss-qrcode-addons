@@ -77,7 +77,8 @@ class bss_import(osv.osv):
     _name = 'bss_qrcode.import'
     _description = 'Imported files from xmlrpc'
     _order = 'create_date DESC'
-   
+  
+    """ Get the child number (i.e imported documents) which have a specific status. """
     def get_nb(self, cr, uid, ids, name, arg, context=None):
         res = {}
         bss_imported_document = self.pool.get('bss_qrcode.imported_document')
@@ -87,11 +88,26 @@ class bss_import(osv.osv):
 
         return res
     
+    """ Get state of the import. Processed if all child are processed, Unprocessed if at least one child is unprocessed. """
+    def _get_state(self, cr, uid, ids, name, arg, context=None):
+        res = {}
+        
+        for import_id in ids:
+            nb_child_unprocessd = self.search(cr, uid, [('import_id', '=', import_id), ('state', '=', UNPROCESSED)], count=True)
+
+            if nb_child_unprocessd <= 0:
+                res[import_id] = PROCESSED
+            else:
+                res[import_id] = UNPROCESSED
+            
+        return res
+        
     _columns = {
         'name': fields.char('Date created'),
         'create_date' : fields.datetime('Date created', readonly=True),
         'imported_document_ids': fields.one2many('bss_qrcode.imported_document', 'import_id', string='Imported documents'),
         'status': fields.selection([('success','All documents succeed'), ('fail','At least one failed document')], 'Status', required=True),
+        'state': fields.function(_get_state, method=True, type='selection', string='State', required=True, store=False),
         'progression': fields.selection([('finished','Finished'), ('in_progress','In progress'), ('error','Error')], 'State', required=True),
         'success_nb': fields.function(get_nb, arg={'status': 'success'}, method=True, store=False, string="Number of successes", type="integer"),  
         'fail_nb': fields.function(get_nb, arg={'status': 'fail'}, method=True, store=False, string="Number of fails", type="integer"),  

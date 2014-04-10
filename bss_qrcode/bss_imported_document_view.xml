@@ -12,7 +12,7 @@
 						<button name="action_processed" string="Processed" type="object" states="unprocessed" class="oe_highlight"/>
 						<button name="action_unprocessed" string="Unprocessed" type="object" states="processed" />
 						<field name="state" widget="statusbar" readonly="1" />
-	        		</header>       	
+	        		</header>
 		        	<sheet>
 		        		<label for="filename"/>
 	               		<field name="filename"/>

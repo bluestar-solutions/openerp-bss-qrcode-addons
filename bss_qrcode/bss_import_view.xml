@@ -8,11 +8,10 @@
 	        <field name="model">bss_qrcode.import</field>
 	        <field name="arch" type="xml">
 	        	<form create="false" edit="false" string="Import" version="7.0">        	
-		        	<sheet>
-     					<div class="oe_right oe_button_box" name="buttons">
-                        	 
-                    	</div>
-                    	
+		        	<header>
+						<field name="state" widget="statusbar" readonly="1" />
+	        		</header>
+		        	<sheet>                    	
 		        		<group col="2">
 			        		<group col="1">
 			        			<h1><separator string="Date created" /></h1>
