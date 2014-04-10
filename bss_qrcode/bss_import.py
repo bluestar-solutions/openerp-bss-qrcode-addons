@@ -43,7 +43,7 @@ class bss_imported_document(osv.osv):
     _columns = {
         'import_id': fields.many2one('bss_qrcode.import', string="Imported date", ondelete='cascade', required=True, readonly=True),
         'status': fields.selection([('success','Success'), ('fail','Fail'), ('not_found', 'QR Code not found')], string='Status', required=True),
-        'state': fields.selection([('processed','Processed'), ('unprocessed','Unprocessed')], string='State', required=True),
+        'state': fields.selection([('unprocessed','Unprocessed'), ('processed','Processed')], string='State', required=True),
         'qrcode_id': fields.many2one('bss_qrcode.qrcode', string='File'),
         'message': fields.char('Message'),
         'qrcode_create_date': fields.related('qrcode_id', 'create_date', type='char', string='First download date', store=False),
