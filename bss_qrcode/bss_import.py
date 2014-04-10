@@ -112,7 +112,7 @@ class bss_import(osv.osv):
             imported_document = {
                 'import_id': myimport.id,
                 'status': NOT_FOUND,
-                'processed': UNPROCESSED,
+                'state': UNPROCESSED,
                 'qrcode_id': qrcode_id,
                 'message': NOT_FOUND_MSG,
             }
@@ -125,7 +125,7 @@ class bss_import(osv.osv):
                 imported_document = {
                     'import_id': myimport.id,
                     'status': FAIL,
-                    'processed': UNPROCESSED,
+                    'state': UNPROCESSED,
                     'qrcode_id': qrcode_id,
                     'message': FAIL_QRCODE_MSG,
                 }
@@ -138,7 +138,7 @@ class bss_import(osv.osv):
                     imported_document = {
                         'import_id': myimport.id,
                         'status': FAIL,
-                        'processed': UNPROCESSED,
+                        'state': UNPROCESSED,
                         'qrcode_id': qrcode_id,
                         'message': FAIL_OBJECT_MSG,
                     }
@@ -148,7 +148,7 @@ class bss_import(osv.osv):
                     imported_document = {
                         'import_id': myimport.id,
                         'status': SUCCESS,
-                        'processed': PROCESSED,
+                        'state': PROCESSED,
                         'qrcode_id': qrcode_id,
                         'message': SUCCESS_MSG,
                     }
