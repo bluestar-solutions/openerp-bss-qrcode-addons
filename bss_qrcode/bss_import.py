@@ -22,45 +22,31 @@
 from openerp.osv import osv, fields
 
 # Pseudo constants
-FAIL_QRCODE = "OpenERP qrcode cannot be found."
-FAIL_OBJECT = "OpenERP object cannot be found."
+SUCCESS_MSG = "The document is successfully added."
+FAIL_QRCODE_MSG = "OpenERP QR Code cannot be found."
+FAIL_OBJECT_MSG = "OpenERP object cannot be found."
+NOT_FOUND_MSG = "The QR Code cannot be found."
 SUCCESS = "success"
 FAIL = "fail"
+NOT_FOUND = "not_found"
+FILENAME_QRCODE_NOT_FOUND = "qrcode_not_found"
+PROCESSED = "processed"
+UNPROCESSED = "unprocessed"
    
-""" Successful imported document. """            
-class bss_success(osv.osv):
+""" Imported document. """            
+class bss_imported_document(osv.osv):
 
-    _name = 'bss_qrcode.success'
-    _description = "Successfully imported files"
+    _name = 'bss_qrcode.imported_document'
+    _description = "Imported QR Code documented"
     _rec_name = 'qrcode_id'
    
     _columns = {
         'import_id': fields.many2one('bss_qrcode.import', string="Imported date", ondelete='cascade', required=True, readonly=True),
-        'qrcode_id': fields.many2one('bss_qrcode.qrcode', string='File', required=True),
-        'document': fields.binary('Document'),
-        'qrcode_create_date': fields.related('qrcode_id', 'create_date', type='date', string='First downloaded date', store=False),
-        'oe_version': fields.related('qrcode_id', 'oe_version', type='char', string='Version', store=False),
-        'oe_object': fields.related('qrcode_id', 'oe_object', type='char', string='Object', store=False),
-        'oe_id': fields.related('qrcode_id', 'oe_id', type='char', string='Id', store=False),
-        'user_id': fields.related('qrcode_id', 'user_id', type='char', string='User id', store=False),
-        'report': fields.related('qrcode_id', 'report', type='char', string='Report', store=False),
-        'filename': fields.related('qrcode_id', 'filename', type='char', string='Filename', store=False),
-    }
-
-bss_success()
-
-""" Failed imported document for any reason (id not found, report not found, etc). """           
-class bss_fail(osv.osv):
-
-    _name = 'bss_qrcode.fail'
-    _description = "Failed imported files"
-   
-    _columns = {
-        'import_id': fields.many2one('bss_qrcode.import', string="Import", ondelete='cascade', required=True, readonly=True),
-        'qrcode_id': fields.many2one('bss_qrcode.qrcode', string='QR Code', required=True),
-        'document': fields.binary('Document'),
-        'reason': fields.char('Reason'),
-        'qrcode_create_date': fields.related('qrcode_id', 'create_date', type='date', string='First downloaded date', store=False),
+        'status': fields.selection([('success','Success'), ('fail','Fail'), ('not_found', 'QR Code not found')], string='Status', required=True),
+        'state': fields.selection([('unprocessed','Unprocessed'), ('processed','Processed')], string='State', required=True),
+        'qrcode_id': fields.many2one('bss_qrcode.qrcode', string='File'),
+        'message': fields.char('Message'),
+        'qrcode_create_date': fields.related('qrcode_id', 'create_date', type='char', string='First download date', store=False),
         'oe_version': fields.related('qrcode_id', 'oe_version', type='char', string='Version', store=False),
         'oe_object': fields.related('qrcode_id', 'oe_object', type='char', string='Object', store=False),
         'oe_id': fields.related('qrcode_id', 'oe_id', type='char', string='Id', store=False),
@@ -69,102 +55,159 @@ class bss_fail(osv.osv):
         'filename': fields.related('qrcode_id', 'filename', type='char', string='Filename', store=False),
     }
     
-bss_fail()
-
-""" Imported document where QR Code was not found. """               
-class bss_qrcode_not_found(osv.osv):
-
-    _name = 'bss_qrcode.qrcode_not_found'
-    _description = "Imported files where QR Code were not found"
-   
-    _columns = {
-        'import_id': fields.many2one('bss_qrcode.import', string="Import", ondelete='cascade', required=True, readonly=True),
-        'document': fields.binary('Document')
+    _defaults = {
+        'state': 'unprocessed',
     }
+        
+    """ Trigger import state when state of the document import change. """
+    def onchange_state(self, cr, uid, ids, context=None):
+        for imported_document in self.browse(cr, uid, ids, context):
+            myimport = self.pool.get('bss_qrcode.import').browse(cr, uid, imported_document.import_id.id)
+            count_unprocessed = self.search(cr, uid, [('import_id', '=', myimport.id), ('state', '=', UNPROCESSED)], count=True)
+            if count_unprocessed > 0:
+                myimport.write({'state': UNPROCESSED})
+            else:
+                myimport.write({'state': PROCESSED})
+            
+    """ Set the state to processed. """
+    def action_processed(self, cr, uid, ids, context=None):
+        for imported_document in self.browse(cr, uid, ids, context):
+            self.write(cr, uid, imported_document.id, {'state': PROCESSED}, context)
+            self.onchange_state(cr, uid, ids)
+        return 1
 
-bss_qrcode_not_found()
+    """ Set the state to unprocessed. """
+    def action_unprocessed(self, cr, uid, ids, context=None):
+        for imported_document in self.browse(cr, uid, ids, context):
+            self.write(cr, uid, imported_document.id, {'state': UNPROCESSED}, context)
+            self.onchange_state(cr, uid, ids)
+        return 1
+
+bss_imported_document()
 
 """ Class which contains all imported files of an xmlrpc call. """
 class bss_import(osv.osv):
     
     _name = 'bss_qrcode.import'
-    _description = "Imported files by xmlrpc"
-    _rec_name = 'create_date'
-   
+    _description = 'Imported files from xmlrpc'
+    _order = 'create_date DESC'
+  
+    """ Get the child number (i.e imported documents) which have a specific status. """
+    def get_nb(self, cr, uid, ids, name, arg, context=None):
+        res = {}
+        bss_imported_document = self.pool.get('bss_qrcode.imported_document')
+        
+        for import_id in ids:
+            res[import_id] = bss_imported_document.search(cr, uid, [('import_id', '=', import_id), ('status', 'like', arg['status'])], count=True)
+
+        return res
+        
     _columns = {
+        'name': fields.char('Date created', readOnly=True),
         'create_date' : fields.datetime('Date created', readonly=True),
-        'identifier': fields.char('Identifier from java'),
-        'success_ids': fields.one2many('bss_qrcode.success', 'import_id', string='Succeed imported documents'),
-        'fail_ids': fields.one2many('bss_qrcode.fail', 'import_id', string='Failed imported documents'),
-        'qrcode_not_found_ids': fields.one2many('bss_qrcode.qrcode_not_found', 'import_id', string='QR Code not found'),
-        'status': fields.selection([('success','Success'), ('fail','Fail')], 'Status', required=True),
-        'terminated': fields.boolean('Terminated'),    
+        'imported_document_ids': fields.one2many('bss_qrcode.imported_document', 'import_id', string='Imported documents', readOnly=True),
+        'status': fields.selection([('success','All documents succeed'), ('fail','At least one failed document')], 'Status', required=True, readOnly=True),
+        'state': fields.selection([('unprocessed','Unprocessed'), ('processed','Processed')], string='State', required=True, readOnly=True),
+        'progression': fields.selection([('finished','Finished'), ('in_progress','In progress'), ('error','Error')], 'Progression', required=True, readOnly=True),
+        'success_nb': fields.function(get_nb, arg={'status': 'success'}, method=True, store=False, string="Number of successes", type="integer", readOnly=True),  
+        'fail_nb': fields.function(get_nb, arg={'status': 'fail'}, method=True, store=False, string="Number of fails", type="integer", readOnly=True),  
+        'not_found_nb': fields.function(get_nb, arg={'status': 'not_found'}, method=True, store=False, string="Number of not found", type="integer", readOnly=True),  
+        'total': fields.function(get_nb, arg={'status': '%'}, method=True, store=False, string="Total", type="integer", readOnly=True),  
+    }
+       
+    _defaults = {
+        'state': 'unprocessed',
     }
     
     """ Set the import status to fail. """
     def set_status_to_fail(self, cr, uid, ids, myimport):
         myimport.write({'status': FAIL})
         
-    """ Add the document to the correct column (i.e success, fail or qrcode_not_found).  """
-    def add_document_to_column(self, cr, uid, myimport, qrcode_id, document):        
+    """ Process document by creating the imported document and attach the file to it.
+        Moreover attach the file to the concerned object or make a custom action.  """
+    def process_document(self, cr, uid, myimport, qrcode_id, document):
+        qrcode = None
+        
         # 1. The QR Code is not found
         if qrcode_id == 0:
-            row_id = self.pool.get('bss_qrcode.qrcode_not_found').create(cr, uid, {
-               'import_id': myimport.id, 
-               'document': document
-            })
+            imported_document = {
+                'import_id': myimport.id,
+                'status': NOT_FOUND,
+                'state': UNPROCESSED,
+                'qrcode_id': qrcode_id,
+                'message': NOT_FOUND_MSG,
+            }
             myimport.set_status_to_fail(myimport)
         else:
             qrcode = self.pool.get('bss_qrcode.qrcode').read(cr, uid, qrcode_id)
         
             # 2. The OpenERP QRCode dont'exist
             if(qrcode is None):
-                row_id = self.pool.get('bss_qrcode.fail').create(cr, uid, {
-                   'import_id': myimport.id, 
-                   'qrcode_id': qrcode_id, 
-                   'document': document,
-                   'reason': FAIL_QRCODE
-                })
+                imported_document = {
+                    'import_id': myimport.id,
+                    'status': FAIL,
+                    'state': UNPROCESSED,
+                    'qrcode_id': qrcode_id,
+                    'message': FAIL_QRCODE_MSG,
+                }
                 myimport.set_status_to_fail(myimport)
             else:
                 myobject = self.pool.get(qrcode['oe_object']).read(cr, uid, qrcode['oe_id'])
                 
                 # 3. The specific OpenERP object don't exist
                 if(myobject is None):
-                    row_id = self.pool.get('bss_qrcode.fail').create(cr, uid, {
-                       'import_id': myimport.id, 
-                       'qrcode_id': qrcode_id, 
-                       'document': document,
-                       'reason': FAIL_OBJECT
-                    })
+                    imported_document = {
+                        'import_id': myimport.id,
+                        'status': FAIL,
+                        'state': UNPROCESSED,
+                        'qrcode_id': qrcode_id,
+                        'message': FAIL_OBJECT_MSG,
+                    }
                     myimport.set_status_to_fail(myimport)
                 # 4. The document doesn't have any problem  
                 else:
-                    row_id = self.pool.get('bss_qrcode.success').create(cr, uid, {
-                       'import_id': myimport.id, 
-                       'qrcode_id': qrcode_id, 
-                       'document':  document,
-                    })
+                    imported_document = {
+                        'import_id': myimport.id,
+                        'status': SUCCESS,
+                        'state': PROCESSED,
+                        'qrcode_id': qrcode_id,
+                        'message': SUCCESS_MSG,
+                    }
                     self.pool.get('bss_qrcode.qrcode').attach_file(cr, uid, qrcode['id'], document)
-            
+        
+        class_imported_document = self.pool.get('bss_qrcode.imported_document')          
+        row_id = class_imported_document.create(cr, uid, imported_document)
+        class_imported_document.onchange_state(cr, uid, [row_id])
+        
+        # Filename attachment
+        if qrcode is None:
+            filename = FILENAME_QRCODE_NOT_FOUND
+        else:
+            filename = qrcode['filename']
+        
+        # Attach the document to the object
+        ir_attachment = self.pool.get('ir.attachment')
+        ir_attachment.create(cr, uid, {
+            'name': filename,
+            'datas_fname': filename,
+            'res_model': 'bss_qrcode.imported_document',
+            'res_id': row_id,
+            'type': 'binary',
+            'db_datas': document,
+        })
+
         return row_id
         
     """ Function called by an xmlrpc connection. Create an import object with documents. """
-    def add_to_import_object(self, cr, uid, java_identifier, qrcode_id, document):
-        import_id = self.search(cr, uid, [('identifier', '=', java_identifier)])
+    def add_to_import_object(self, cr, uid, import_id, qrcode_id, document):
         
-        # If the import object already exists then use it, create it else
-        if import_id:
-            myimport = self.read(cr, uid, import_id[0])
-            # In order to have a dictionary and not an array
-            myimport = self.browse(cr, uid, myimport['id'])
-        else:
-            myimport_id = self.create(cr, uid, {'identifier': java_identifier, 'status': SUCCESS})
-            myimport = self.browse(cr, uid, myimport_id)
+        myimport = self.read(cr, uid, import_id)
         
-        # Add the document to the correct column
-        row_id = self.add_document_to_column(cr, uid, myimport, qrcode_id, document)
+        # In order to have a dictionary and not an array
+        myimport = self.browse(cr, uid, myimport['id'])
+
+        row_id = self.process_document(cr, uid, myimport, qrcode_id, document)
         
-        return row_id 
+        return row_id
                  
 bss_import()
