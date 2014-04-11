@@ -46,9 +46,29 @@ class bss_qrcode(osv.osv):
         'custom_treatment': False,
     }
     
-    """ Return a qrcode image. """
-    def print_qrcode(self, cr, uid, ids, current_qrcode):
+    """ If the QR Code exists return it, create it else. """
+    def get_qrcode(self, cr, uid, qrcode_data):
+        # Search if the qrcode exists
+        search_qrcode = bss_qrcode.search(cr, uid, [
+            ('oe_object', '=', qrcode_data['oe_object']),
+            ('oe_id', '=', qrcode_data['oe_id']),
+            ('report','=', qrcode_data['report'])
+        ])
+                        
+        # If the QR Code already exists, we use it
+        if search_qrcode:
+            qrcode_id = search_qrcode[0]
+        # Else we create a new QR Code
+        else:
+            qrcode_id = bss_qrcode.create(cr, uid, qrcode_data)
         
+        # Browse the qrcode
+        qrcode = bss_qrcode.browse(cr, uid, qrcode_id)
+        
+        return qrcode  
+    
+    """ Return a qrcode image. """
+    def print_qrcode(self, cr, uid, ids, current_qrcode):        
         # QR Code creation
         qr = qrcode.QRCode(
             version=None,
