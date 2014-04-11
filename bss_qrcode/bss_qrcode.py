@@ -49,7 +49,7 @@ class bss_qrcode(osv.osv):
     """ If the QR Code exists return it, create it else. """
     def get_qrcode(self, cr, uid, qrcode_data):
         # Search if the qrcode exists
-        search_qrcode = bss_qrcode.search(cr, uid, [
+        search_qrcode = self.search(cr, uid, [
             ('oe_object', '=', qrcode_data['oe_object']),
             ('oe_id', '=', qrcode_data['oe_id']),
             ('report','=', qrcode_data['report'])
@@ -60,10 +60,10 @@ class bss_qrcode(osv.osv):
             qrcode_id = search_qrcode[0]
         # Else we create a new QR Code
         else:
-            qrcode_id = bss_qrcode.create(cr, uid, qrcode_data)
+            qrcode_id = self.create(cr, uid, qrcode_data)
         
         # Browse the qrcode
-        qrcode = bss_qrcode.browse(cr, uid, qrcode_id)
+        qrcode = self.browse(cr, uid, qrcode_id)
         
         return qrcode  
     
