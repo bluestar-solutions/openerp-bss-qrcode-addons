@@ -103,34 +103,21 @@ class bss_import(osv.osv):
         return res
         
     _columns = {
-        'name': fields.char('Date created'),
+        'name': fields.char('Date created', readOnly=True),
         'create_date' : fields.datetime('Date created', readonly=True),
-        'imported_document_ids': fields.one2many('bss_qrcode.imported_document', 'import_id', string='Imported documents'),
-        'status': fields.selection([('success','All documents succeed'), ('fail','At least one failed document')], 'Status', required=True),
-        'state': fields.selection([('unprocessed','Unprocessed'), ('processed','Processed')], string='State', required=True),
-        'progression': fields.selection([('finished','Finished'), ('in_progress','In progress'), ('error','Error')], 'Progression', required=True),
-        'success_nb': fields.function(get_nb, arg={'status': 'success'}, method=True, store=False, string="Number of successes", type="integer"),  
-        'fail_nb': fields.function(get_nb, arg={'status': 'fail'}, method=True, store=False, string="Number of fails", type="integer"),  
-        'not_found_nb': fields.function(get_nb, arg={'status': 'not_found'}, method=True, store=False, string="Number of not found", type="integer"),  
-        'total': fields.function(get_nb, arg={'status': '%'}, method=True, store=False, string="Total", type="integer"),  
+        'imported_document_ids': fields.one2many('bss_qrcode.imported_document', 'import_id', string='Imported documents', readOnly=True),
+        'status': fields.selection([('success','All documents succeed'), ('fail','At least one failed document')], 'Status', required=True, readOnly=True),
+        'state': fields.selection([('unprocessed','Unprocessed'), ('processed','Processed')], string='State', required=True, readOnly=True),
+        'progression': fields.selection([('finished','Finished'), ('in_progress','In progress'), ('error','Error')], 'Progression', required=True, readOnly=True),
+        'success_nb': fields.function(get_nb, arg={'status': 'success'}, method=True, store=False, string="Number of successes", type="integer", readOnly=True),  
+        'fail_nb': fields.function(get_nb, arg={'status': 'fail'}, method=True, store=False, string="Number of fails", type="integer", readOnly=True),  
+        'not_found_nb': fields.function(get_nb, arg={'status': 'not_found'}, method=True, store=False, string="Number of not found", type="integer", readOnly=True),  
+        'total': fields.function(get_nb, arg={'status': '%'}, method=True, store=False, string="Total", type="integer", readOnly=True),  
     }
        
     _defaults = {
         'state': 'unprocessed',
     }
-     
-    """ Override the function in order to fix the bug in the document import' search. """
-    def name_get(self, cr, uid, ids, context=None):
-        if isinstance(ids, (list, tuple)) and not len(ids):
-            return []
-        if isinstance(ids, (long, int)):
-            ids = [ids]
-        reads = self.read(cr, uid, ids, ['create_date'], context=context)
-        res = []
-        for record in reads:
-            name = record['create_date']
-            res.append((record['id'], name))
-        return res
     
     """ Set the import status to fail. """
     def set_status_to_fail(self, cr, uid, ids, myimport):
