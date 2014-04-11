@@ -38,7 +38,12 @@ class bss_qrcode(osv.osv):
         'user_id': fields.integer('User id'),  
         'report': fields.char('Report'),  
         'filename': fields.char('Filename'),  
-        'server_id': fields.char('Server id')
+        'server_id': fields.char('Server id'),
+        'custom_treatment': fields.boolean('Custom treatment')
+    }
+    
+    _defaults = {
+        'custom_treatment': False,
     }
     
     """ Return a qrcode image. """
