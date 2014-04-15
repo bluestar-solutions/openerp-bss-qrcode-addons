@@ -38,12 +38,7 @@ class bss_qrcode(osv.osv):
         'user_id': fields.integer('User id'),  
         'report': fields.char('Report'),  
         'filename': fields.char('Filename'),  
-        'server_id': fields.char('Server id'),
-        'custom_treatment': fields.boolean('Custom treatment')
-    }
-    
-    _defaults = {
-        'custom_treatment': False,
+        'server_id': fields.char('Server id')
     }
     
     """ If the QR Code exists return it, create it else. """

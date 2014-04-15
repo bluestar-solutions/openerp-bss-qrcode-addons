@@ -118,6 +118,19 @@ class bss_import(osv.osv):
     _defaults = {
         'state': 'unprocessed',
     }
+
+    """ Override the function in order to fix the bug in the document import' search. """
+    def name_get(self, cr, uid, ids, context=None):
+        if isinstance(ids, (list, tuple)) and not len(ids):
+            return []
+        if isinstance(ids, (long, int)):
+            ids = [ids]
+        reads = self.read(cr, uid, ids, ['create_date'], context=context)
+        res = []
+        for record in reads:
+            name = record['create_date']
+            res.append((record['id'], name))
+        return res
     
     """ Set the import status to fail. """
     def set_status_to_fail(self, cr, uid, ids, myimport):
@@ -173,9 +186,13 @@ class bss_import(osv.osv):
                         'qrcode_id': qrcode_id,
                         'message': SUCCESS_MSG,
                     }
-                    if qrcode['custom_treatment']:
+
+                    # If the qrcode_custom_treatment exists, then we use the specific treatment
+                    try:
+                        getattr(self.pool.get(qrcode['oe_object']), "qrcode_custom_treatment")
                         self.pool.get(qrcode['oe_object']).qrcode_custom_treatment(cr, uid, qrcode, document)
-                    else:
+                    # Else we use the default treatment i.e to attach the file to the object
+                    except AttributeError:
                         self.pool.get('bss_qrcode.qrcode').attach_file(cr, uid, qrcode['id'], document)
         
         class_imported_document = self.pool.get('bss_qrcode.imported_document')          
