@@ -173,7 +173,14 @@ class bss_import(osv.osv):
                         'qrcode_id': qrcode_id,
                         'message': SUCCESS_MSG,
                     }
-                    self.pool.get('bss_qrcode.qrcode').attach_file(cr, uid, qrcode['id'], document)
+
+                    # If the qrcode_custom_treatment exists, then we use the specific treatment
+                    try:
+                        getattr(self.pool.get(qrcode['oe_object']), "qrcode_custom_treatment")
+                        self.pool.get(qrcode['oe_object']).qrcode_custom_treatment(cr, uid, qrcode, document)
+                    # Else we use the default treatment i.e to attach the file to the object
+                    except AttributeError:
+                        self.pool.get('bss_qrcode.qrcode').attach_file(cr, uid, qrcode['id'], document)
         
         class_imported_document = self.pool.get('bss_qrcode.imported_document')          
         row_id = class_imported_document.create(cr, uid, imported_document)
