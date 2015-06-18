@@ -11,13 +11,9 @@
 		        	<header>
 						<field name="state" widget="statusbar" readonly="1" />
 	        		</header>
-		        	<sheet>                    	
-		        		<group col="2">
-			        		<group col="1">
-			        			<h1><separator string="Date created" /></h1>
-			                	<h1><field name="create_date" /></h1>
-			        		</group>
-			        		
+		        	<sheet>       
+		        		<h1><field name="create_date" /></h1>             	
+		        		<group col="2">			        		
 			        		<group col="1">
 			        			<div>
 				        			<button class="oe_right"
