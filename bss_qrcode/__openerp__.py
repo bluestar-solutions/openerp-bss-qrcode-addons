@@ -22,7 +22,7 @@
 {
     'name': 'Bluestar Solutions Sàrl QRCode',
     'version': '7.0.1.0-20150409',
-    "category" : 'Bluestar/Generic module',
+    "category": 'Bluestar/Generic module',
     'complexity': "easy",
     'description': """QR Code management for reports.""",
     'author': 'bluestar solutions sàrl',
