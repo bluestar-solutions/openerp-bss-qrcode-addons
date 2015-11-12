@@ -288,7 +288,7 @@ class bss_import(osv.osv):
             'res_model': 'bss_qrcode.imported_document',
             'res_id': row_id,
             'type': 'binary',
-            'db_datas': document,
+            'datas': document,
         })
 
         return row_id

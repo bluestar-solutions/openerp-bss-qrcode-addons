@@ -108,7 +108,7 @@ class bss_qrcode(osv.osv):
             'res_model': qrcode['oe_object'],
             'res_id': qrcode['oe_id'],
             'type': 'binary',
-            'db_datas': document,
+            'datas': document,
         })
 
 bss_qrcode()
