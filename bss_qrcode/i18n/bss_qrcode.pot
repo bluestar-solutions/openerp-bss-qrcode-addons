@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-04 07:24+0000\n"
-"PO-Revision-Date: 2014-04-04 07:24+0000\n"
+"POT-Creation-Date: 2016-04-26 09:21+0000\n"
+"PO-Revision-Date: 2016-04-26 09:21+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,13 +16,8 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: bss_qrcode
-#: field:bss_qrcode.import,terminated:0
-msgid "Terminated"
-msgstr ""
-
-#. module: bss_qrcode
-#: model:ir.model,name:bss_qrcode.model_bss_qrcode_success
-msgid "Successfully imported files"
+#: view:bss_qrcode.imported_document:0
+msgid "Unsuccess"
 msgstr ""
 
 #. module: bss_qrcode
@@ -31,14 +26,50 @@ msgid "Openerp id"
 msgstr ""
 
 #. module: bss_qrcode
+#: selection:bss_qrcode.import,state:0
+#: view:bss_qrcode.imported_document:0
+#: selection:bss_qrcode.imported_document,state:0
+msgid "Unprocessed"
+msgstr ""
+
+#. module: bss_qrcode
+#: field:bss_qrcode.import,not_found_nb:0
+msgid "Number of not found"
+msgstr ""
+
+#. module: bss_qrcode
+#: view:bss_qrcode.imported_document:0
 #: field:bss_qrcode.imported_document,filename:0
 #: field:bss_qrcode.qrcode,filename:0
 msgid "Filename"
 msgstr ""
 
 #. module: bss_qrcode
+#: field:bss_qrcode.imported_document,user_id:0
+#: field:bss_qrcode.qrcode,user_id:0
+msgid "User id"
+msgstr ""
+
+#. module: bss_qrcode
+#: view:bss_qrcode.import:0
+msgid "Failed"
+msgstr ""
+
+#. module: bss_qrcode
+#: field:bss_qrcode.import,state:0
+#: field:bss_qrcode.imported_document,state:0
+msgid "State"
+msgstr ""
+
+#. module: bss_qrcode
 #: field:bss_qrcode.imported_document,oe_version:0
 msgid "Version"
+msgstr ""
+
+#. module: bss_qrcode
+#: view:bss_qrcode.import:0
+#: selection:bss_qrcode.imported_document,status:0
+msgid "Success"
 msgstr ""
 
 #. module: bss_qrcode
@@ -57,40 +88,32 @@ msgid "QR Code generation and files association"
 msgstr ""
 
 #. module: bss_qrcode
-#: model:ir.model,name:bss_qrcode.model_bss_qrcode_import
-msgid "Imported files by xmlrpc"
-msgstr ""
-
-#. module: bss_qrcode
 #: view:bss_qrcode.import:0
+#: view:bss_qrcode.imported_document:0
 #: model:ir.actions.act_window,name:bss_qrcode.action_bss_qrcode_import_form
 msgid "Import"
 msgstr ""
 
 #. module: bss_qrcode
-#: field:bss_qrcode.import,identifier:0
-msgid "Identifier from java"
-msgstr ""
-
-#. module: bss_qrcode
 #: view:bss_qrcode.import:0
-msgid "All documents"
+msgid "Today"
 msgstr ""
 
 #. module: bss_qrcode
 #: field:bss_qrcode.import,status:0
+#: view:bss_qrcode.imported_document:0
 #: field:bss_qrcode.imported_document,status:0
 msgid "Status"
 msgstr ""
 
 #. module: bss_qrcode
-#: field:bss_qrcode.qrcode,server_id:0
-msgid "Server id"
+#: view:bss_qrcode.import:0
+msgid "Failed imports"
 msgstr ""
 
 #. module: bss_qrcode
-#: field:bss_qrcode.imported_document,qrcode_create_date:0
-msgid "First downloaded date"
+#: field:bss_qrcode.qrcode,server_id:0
+msgid "Server id"
 msgstr ""
 
 #. module: bss_qrcode
@@ -104,14 +127,23 @@ msgid "Openerp version"
 msgstr ""
 
 #. module: bss_qrcode
+#: view:bss_qrcode.import:0
+msgid "Not found QR Code"
+msgstr ""
+
+#. module: bss_qrcode
 #: model:ir.model,name:bss_qrcode.model_bss_qrcode_imported_document
 msgid "Imported QR Code documented"
 msgstr ""
 
 #. module: bss_qrcode
-#: field:bss_qrcode.imported_document,user_id:0
-#: field:bss_qrcode.qrcode,user_id:0
-msgid "User id"
+#: selection:bss_qrcode.import,progression:0
+msgid "Finished"
+msgstr ""
+
+#. module: bss_qrcode
+#: view:bss_qrcode.import:0
+msgid "Succeed"
 msgstr ""
 
 #. module: bss_qrcode
@@ -121,23 +153,30 @@ msgid "Report"
 msgstr ""
 
 #. module: bss_qrcode
-#: model:ir.model,name:bss_qrcode.model_bss_qrcode_fail
-msgid "Failed imported files"
-msgstr ""
-
-#. module: bss_qrcode
 #: selection:bss_qrcode.import,status:0
 msgid "All documents succeed"
 msgstr ""
 
 #. module: bss_qrcode
-#: selection:bss_qrcode.imported_document,status:0
-msgid "Success"
+#: field:bss_qrcode.import,progression:0
+msgid "Progression"
 msgstr ""
 
 #. module: bss_qrcode
-#: model:ir.model,name:bss_qrcode.model_bss_qrcode_qrcode_not_found
-msgid "Imported files where QR Code were not found"
+#: view:bss_qrcode.import:0
+msgid "Not found"
+msgstr ""
+
+#. module: bss_qrcode
+#: selection:bss_qrcode.import,state:0
+#: view:bss_qrcode.imported_document:0
+#: selection:bss_qrcode.imported_document,state:0
+msgid "Processed"
+msgstr ""
+
+#. module: bss_qrcode
+#: selection:bss_qrcode.import,progression:0
+msgid "Error"
 msgstr ""
 
 #. module: bss_qrcode
@@ -147,8 +186,38 @@ msgid "Date created"
 msgstr ""
 
 #. module: bss_qrcode
+#: selection:bss_qrcode.import,progression:0
+msgid "In progress"
+msgstr ""
+
+#. module: bss_qrcode
+#: view:bss_qrcode.import:0
+msgid "All"
+msgstr ""
+
+#. module: bss_qrcode
+#: field:bss_qrcode.import,total:0
+msgid "Total"
+msgstr ""
+
+#. module: bss_qrcode
+#: view:bss_qrcode.import:0
+msgid "Succeed imports"
+msgstr ""
+
+#. module: bss_qrcode
+#: view:bss_qrcode.imported_document:0
+msgid "Failed or not found QR Code"
+msgstr ""
+
+#. module: bss_qrcode
 #: field:bss_qrcode.import,imported_document_ids:0
 msgid "Imported documents"
+msgstr ""
+
+#. module: bss_qrcode
+#: field:bss_qrcode.imported_document,qrcode_create_date:0
+msgid "First download date"
 msgstr ""
 
 #. module: bss_qrcode
@@ -157,8 +226,18 @@ msgid "At least one failed document"
 msgstr ""
 
 #. module: bss_qrcode
+#: field:bss_qrcode.import,success_nb:0
+msgid "Number of successes"
+msgstr ""
+
+#. module: bss_qrcode
 #: field:bss_qrcode.qrcode,oe_object:0
 msgid "Openerp object"
+msgstr ""
+
+#. module: bss_qrcode
+#: field:bss_qrcode.import,fail_nb:0
+msgid "Number of fails"
 msgstr ""
 
 #. module: bss_qrcode
@@ -167,6 +246,7 @@ msgid "File"
 msgstr ""
 
 #. module: bss_qrcode
+#: view:bss_qrcode.import:0
 #: selection:bss_qrcode.imported_document,status:0
 msgid "Fail"
 msgstr ""
@@ -174,6 +254,11 @@ msgstr ""
 #. module: bss_qrcode
 #: field:bss_qrcode.imported_document,message:0
 msgid "Message"
+msgstr ""
+
+#. module: bss_qrcode
+#: model:ir.model,name:bss_qrcode.model_bss_qrcode_import
+msgid "Imported files from xmlrpc"
 msgstr ""
 
 #. module: bss_qrcode
@@ -186,3 +271,4 @@ msgstr ""
 #: model:ir.actions.act_window,name:bss_qrcode.action_bss_qrcode_imported_document_form
 msgid "Imported document"
 msgstr ""
+
